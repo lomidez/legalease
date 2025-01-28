@@ -1,0 +1,79 @@
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "6.8.0"
+    }
+  }
+}
+
+provider "google" {
+  project = "legalease-25wq"
+  region  = "us-central1"
+  zone    = "us-central1-b"
+}
+
+### INIT ### 
+
+variable "gcp_service_list" {
+  description = "List of APIs/Services needed for this project"
+  type        = list(string)
+  default = [
+    "compute.googleapis.com",
+  ]
+}
+
+resource "google_project_service" "legalease_gcp_services" {
+  for_each = toset(var.gcp_service_list)
+  service  = each.key
+}
+
+### LEGALEASE ###
+
+resource "google_compute_network" "legalease_network" {
+  name                    = "legalease-network"
+  auto_create_subnetworks = true
+}
+
+resource "google_compute_firewall" "legalease_allow_ssh" {
+  name    = "allow-ssh"
+  network = google_compute_network.legalease_network.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}
+
+resource "google_compute_instance" "legalease_vm" {
+  name         = "legalease"
+  machine_type = "n1-standard-1"
+
+  boot_disk {
+    initialize_params {
+      image = "ubuntu-os-cloud/ubuntu-2404-lts-amd64"
+      size  = 20 # in GBs
+    }
+  }
+
+  network_interface {
+    network = google_compute_network.legalease_network.name
+    access_config {
+    }
+  }
+
+  guest_accelerator {
+    type  = "nvidia-tesla-t4"
+    count = 1
+  }
+
+  scheduling {
+    on_host_maintenance = "TERMINATE" # terminate instance when GCP performs maintenance -- haven't tested e2e yet that it will be migrated properly
+  }
+}
+
+output "legalease_ip_address" {
+  value = google_compute_instance.legalease_vm.network_interface[0].access_config[0].nat_ip
+}
