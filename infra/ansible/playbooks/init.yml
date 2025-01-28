@@ -1,0 +1,19 @@
+---
+- name: Initialize system
+  hosts: legalease
+
+  tasks:
+    - name: Add Repositories
+      ansible.builtin.deb822_repository:
+        name: nvidia-container-toolkit
+        types: deb
+        uris: "https://nvidia.github.io/libnvidia-container/stable/deb/{{ ansible_architecture }}"
+        signed_by: "https://nvidia.github.io/libnvidia-container/gpgkey"
+        state: present
+
+    - name: Install packages
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - nvidia-container-toolkit
