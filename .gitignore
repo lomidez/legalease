@@ -14,6 +14,7 @@ override.tf.json
 .terraform.lock.hcl
 .terraformrc
 terraform.rc
+terraform_error.log
 
 # Mac
 .DS_STORE
