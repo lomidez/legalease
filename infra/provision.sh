@@ -24,6 +24,7 @@ is_gpu_error() {
 }
 
 provision() {
+    cd terraform || exit 1
     local error_log="terraform_error.log"
     local success=false
 
