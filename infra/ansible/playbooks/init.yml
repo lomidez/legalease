@@ -1,6 +1,6 @@
 ---
 - name: Initialize system
-  hosts: legalease
+  hosts: "{{ target_host | default('legalease') }}"
 
   tasks:
     - name: Add repositories
