@@ -23,8 +23,13 @@ variable "gcp_service_list" {
 }
 
 variable "zones" {
-  description = "List of zones to try for GPU availability, supplied by the shell script (tfvars)"
+  description = "List of zones to try for resource availability, supplied by the shell script (tfvars)"
   type        = list(string)
+}
+
+variable "machine_type" {
+  description = "Type of machine to try for resource availability, supplied by the shell script (tfvars)"
+  type        = string
 }
 
 resource "google_project_service" "legalease_gcp_services" {
@@ -55,7 +60,7 @@ resource "google_compute_firewall" "legalease_allow_ssh" {
 resource "google_compute_instance" "legalease_vm" {
   count        = 1
   name         = "legalease"
-  machine_type = "n1-standard-1"
+  machine_type = var.machine_type
   zone         = var.zones[0]
 
   boot_disk {

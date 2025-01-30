@@ -1,35 +1,18 @@
 ## NOTE: 
 
-Right now generate_inventory.sh uses Devin's personal 1Password path, this ssh key can be changed to yours if someone else is deploying, just don't check it in. 
+Right now the GCP provisioning scripts uses Devin's personal 1Password path, this ssh key can be changed to yours if someone else is deploying, just don't check it into the repo. 
 
 ## Description
 
-This is a Terraform configuration to setup the initial GCP project, enable services, deploy resources, etc.
+This is a Terraform + Ansible configuration to setup the initial GCP project, enable services, deploy resources, etc.
 
-This is for the sake of portability and reproducibility, should this project be moved to a different hosting platform or change ownership.
+The purpose is portability and reproducibility, should this project be moved to a different hosting platform or change ownership.
 
 This configuration only needs to be run once, locally. 
 
 There are a couple things we need to install: Terraform and Google Cloud CLI (for authentication)
 
 ### Terraform 
-
-#### If you're on Mac: 
-
-Use Homebrew
-
-```
-brew tap hashicorp/tap
-brew install hashicorp/tap/terraform
-```
-
-#### If you're on Windows: 
-
-Use Chocolatey or just Google it
-
-```
-choco install terraform
-```
 
 #### If you're on Linux: 
 
