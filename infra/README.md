@@ -2,6 +2,10 @@
 
 Right now the GCP provisioning scripts uses Devin's personal 1Password path, this ssh key can be changed to yours if someone else is deploying, just don't check it into the repo. 
 
+## Prerequisites
+
+Make sure Terraform, Ansible, and other things are installed on your machine. Scripts have been provided in `/local`.
+
 ## Description
 
 This is a Terraform + Ansible configuration to setup the initial GCP project, enable services, deploy resources, etc.
@@ -9,32 +13,6 @@ This is a Terraform + Ansible configuration to setup the initial GCP project, en
 The purpose is portability and reproducibility, should this project be moved to a different hosting platform or change ownership.
 
 This configuration only needs to be run once, locally. 
-
-There are a couple things we need to install: Terraform and Google Cloud CLI (for authentication)
-
-### Terraform 
-
-#### If you're on Linux: 
-
-You got this
-
-### Google Cloud CLI
-
-#### If you're on Mac: 
-
-```
-TODO
-```
-
-#### If you're on Windows: 
-
-```
-TODO
-```
-
-#### If you're on Linux: 
-
-You got this
 
 ## Quick Start 
 
@@ -52,13 +30,13 @@ gcloud auth application-default login
 
 Generate the SSH private key that will be used to SSH in: 
 ```
-./generate_key.sh
+./1_generate_key.sh
 ```
 
 Now you can provision resources:
 
 ```
-./provision.sh
+./2_provision_gcp.sh
 ```
 
 To check the current state:
@@ -67,11 +45,30 @@ To check the current state:
 terraform show
 ```
 
-After provisioning, you can then set up the VM using Ansible. Start with generating the inventory, then running the scripts:
+After provisioning, you can then set up the VM using Ansible. Start with generating the inventory, then run the setup script.
 
 ```
-./generate_inventory.sh
-<TODO>
+./3_generate_inventory.sh
+./4_setup_vm.sh
+```
+
+At the end of the night to save cost, you may opt to stop the vm (but not terminate). Likewise, you may want to start the vm the next morning. Helper scripts have been provided too:
+
+```
+./stop_vm.sh
+./start_vm.sh
+```
+
+Note 1: The exact same resource may be unavailable the next day when you're trying to restart the VM. In that case, it's faster to reprovision your vm by running:
+
+```
+./2_provision_gcp.sh
+```
+
+Note 2: Your auth expires after some time, so if you see an error just login again:
+
+```
+gcloud auth application-default login
 ```
 
 ## First Time? 
