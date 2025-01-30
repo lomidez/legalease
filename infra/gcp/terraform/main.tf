@@ -57,6 +57,18 @@ resource "google_compute_firewall" "legalease_allow_ssh" {
   source_ranges = ["0.0.0.0/0"]
 }
 
+resource "google_compute_firewall" "legalease_allow_webui" {
+  name    = "allow-webui"
+  network = google_compute_network.legalease_network.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["3000"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}
+
 resource "google_compute_instance" "legalease_vm" {
   count        = 1
   name         = "legalease"
@@ -89,10 +101,18 @@ resource "google_compute_instance" "legalease_vm" {
   }
 }
 
+locals {
+  vm_ip = google_compute_instance.legalease_vm[0].network_interface[0].access_config[0].nat_ip
+}
+
 output "instance_ip" {
-  value = google_compute_instance.legalease_vm[0].network_interface[0].access_config[0].nat_ip
+  value = local.vm_ip
 }
 
 output "instance_zone" {
   value = google_compute_instance.legalease_vm[0].zone
+}
+
+output "webui_url" {
+  value = "https://${local.vm_ip}:3000"
 }
