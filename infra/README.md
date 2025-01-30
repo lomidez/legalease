@@ -16,7 +16,9 @@ This configuration only needs to be run once, locally.
 
 ## Quick Start 
 
-First, all new projects have a quota limit of 0 for GPUs. You have to send a request to GCP to increase that quota (see [here](https://stackoverflow.com/questions/53415180/gcp-error-quota-gpus-all-regions-exceeded-limit-0-0-globally). This cannot be done in Terraform (see [here](https://stackoverflow.com/questions/63598319/how-to-increase-quota-on-gcp-using-terraform-module))
+First, you will have to create a new project in GCP. Currently, the scripts assume the project to be named legalease-25wq. 
+
+Now, all new projects have a quota limit of 0 for GPUs. You have to send a request to GCP to increase that quota (see [here](https://stackoverflow.com/questions/53415180/gcp-error-quota-gpus-all-regions-exceeded-limit-0-0-globally). This cannot be done in Terraform (see [here](https://stackoverflow.com/questions/63598319/how-to-increase-quota-on-gcp-using-terraform-module)).
 
 ![](assets/images/quota_increase.png)
 
