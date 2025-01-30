@@ -1,21 +1,9 @@
 services:
-  ollama-dev:
-    profiles: ["dev"]
-    image: ollama/ollama:latest
-    restart: unless-stopped
+  api:
     ports:
-      - "11434:11434"
-    volumes:
-      - ollama:/root/.ollama
-
-  ollama-prod:
-    profiles: ["prod"]
-    image: ollama/ollama:latest
-    restart: unless-stopped
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama:/root/.ollama
+      - "8000:8000"
+    build:
+      context: .
     deploy:
       resources:
         reservations:
@@ -23,6 +11,3 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
-
-volumes:
-  ollama:
