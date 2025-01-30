@@ -67,6 +67,11 @@ gcloud init
 gcloud auth application-default login
 ```
 
+Generate the SSH private key that will be used to SSH in: 
+```
+./generate_key.sh
+```
+
 Now you can provision resources:
 
 ```

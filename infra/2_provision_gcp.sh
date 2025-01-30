@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Generate SSH key
+
+SSH_KEY=$(op read "op://Personal/LegalEase GCP Key/private key")
+
+echo "$SSH_KEY" > ~/.ssh/legalease_gcp_key
+chmod 600 ~/.ssh/legalease_gcp_key
+
+# Begin Provisioning
+
 # List of zones to try
 zones=(
     "us-central1-a"
@@ -64,10 +73,6 @@ provision() {
         echo "Failed to deploy in any zone. No GPUs available."
         exit 1
     fi
-
-    # Display the IP address
-    echo "Deployment completed. Instance details:"
-    terraform output
 }
 
 provision

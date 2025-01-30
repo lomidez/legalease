@@ -1,18 +1,9 @@
+# https://stackoverflow.com/questions/78232178/ollama-in-docker-pulls-models-via-interactive-shell-but-not-via-run-command-in-t
+
 services:
-  ollama-local:
-    profiles: ["local"]
-    image: ollama/ollama:latest
-    container_name: ollama
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama:/root/.ollama
-    restart: unless-stopped
-    pull_policy: always
-    
-  ollama-prod:
-    profiles: ["prod"]
-    image: ollama/ollama:latest
+  ollama:
+    build:
+      context: .
     container_name: ollama
     ports:
       - "11434:11434"
@@ -27,6 +18,12 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    healthcheck:
+      test: "ollama --version && ollama ps || exit 1"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
 volumes:
   ollama:

@@ -1,10 +1,12 @@
 #!/bin/bash
 
 if [ "$(uname)" = "Linux" ] && command -v nvidia-smi &> /dev/null; then
-    echo "Starting in production mode with GPU support..."
-    docker compose --profile prod up -d
+    echo "Linux with GPU detected; Using Docker compose"
+    docker compose up --build -d
+  elif [ "$(uname)" = "Darwin" ] &> /dev/null; then
+    echo "MacOS detected; Please use native Ollama; A model will be pulled"
+    ollama pull llama3.2
 else
-    echo "Starting in local mode..."
-    docker compose --profile local up
+    echo "Linux without GPU or Windows detected, skipping..."
 fi
 

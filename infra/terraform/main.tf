@@ -61,7 +61,7 @@ resource "google_compute_instance" "legalease_vm" {
   boot_disk {
     initialize_params {
       image = "ubuntu-os-cloud/ubuntu-2404-lts-amd64"
-      size  = 20
+      size  = 40
     }
   }
 
@@ -77,6 +77,10 @@ resource "google_compute_instance" "legalease_vm" {
 
   scheduling {
     on_host_maintenance = "TERMINATE" # terminate instance when GCP performs maintenance -- haven't tested e2e yet that it will be migrated properly
+  }
+
+  metadata = {
+    ssh-keys = "ubuntu:${file("~/.ssh/legalease_gcp_key.pub")}"
   }
 }
 
