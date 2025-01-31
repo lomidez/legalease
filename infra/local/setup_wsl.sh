@@ -21,7 +21,7 @@ echo
   sudo add-apt-repository -y --update ppa:ansible/ansible
 
   sudo apt-get update
-  sudo apt install -y software-properties-common gnupg google-cloud-cli ansible terraform
+  sudo apt install -y software-properties-common gnupg google-cloud-cli ansible terraform python3-debian
 
   ansible-playbook ../gcp/ansible/playbooks/init.yml -e "target_host=localhost"
 )
