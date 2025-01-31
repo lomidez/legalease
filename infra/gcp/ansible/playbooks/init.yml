@@ -41,6 +41,7 @@
         - docker-ce-cli
         - containerd.io
         - docker-compose-plugin
+        - mosh
       become: true
 
     - name: Start Systemd services

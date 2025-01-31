@@ -9,15 +9,30 @@ chmod 600 ~/.ssh/legalease_gcp_key
 
 # Begin Provisioning
 
-# List of zones to try
+# List of zones to try (in order)
+# These are EVERY US zone that has an Nvidia T4
 zones=(
     "us-central1-a"
     "us-central1-b"
     "us-central1-c"
     "us-central1-f"
+    "us-west1-a"
+    "us-west1-b"
+    "us-west2-b"
+    "us-west2-c"
+    "us-west3-b"
+    "us-west4-a"
+    "us-west4-b"
+    "us-west4-c"
+    "us-east1-c"
+    "us-east1-d"
+    "us-east4-a"
+    "us-east4-b"
+    "us-east4-c"
+    "us-east5-b"
 )
 
-# List of machine types to try
+# List of machine types to try (in order)
 machines=(
     "n1-standard-1"
     "n1-standard-2"
@@ -48,6 +63,9 @@ provision() {
     local error_log="terraform_error.log"
     local success=false
 
+    echo "Cleaning up existing resources..."
+    terraform destroy -auto-approve
+
     for machine in "${machines[@]}"; do
       for zone in "${zones[@]}"; do
           # Update tfvars with zone and machine
@@ -64,7 +82,7 @@ provision() {
           if terraform apply -auto-approve 2> "$error_log"; then
               echo "Success! Deployment completed in zone: $zone"
               success=true
-              break
+              break 2
           else
               if is_gpu_error "$error_log"; then
                   echo "Failed to deploy $machine in $zone due to resource unavailability. Trying next zone..."

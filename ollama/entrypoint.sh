@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # https://stackoverflow.com/questions/78232178/ollama-in-docker-pulls-models-via-interactive-shell-but-not-via-run-command-in-t
 
 echo "Starting Ollama server..."

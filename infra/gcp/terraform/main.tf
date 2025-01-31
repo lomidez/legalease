@@ -57,6 +57,30 @@ resource "google_compute_firewall" "legalease_allow_ssh" {
   source_ranges = ["0.0.0.0/0"]
 }
 
+resource "google_compute_firewall" "legalease_allow_mosh" {
+  name    = "allow-mosh"
+  network = google_compute_network.legalease_network.name
+
+  allow {
+    protocol = "udp"
+    ports    = ["60000-61000"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}
+
+resource "google_compute_firewall" "legalease_allow_ollama" {
+  name    = "allow-ollama"
+  network = google_compute_network.legalease_network.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["11434"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}
+
 resource "google_compute_firewall" "legalease_allow_webui" {
   name    = "allow-webui"
   network = google_compute_network.legalease_network.name
@@ -64,6 +88,18 @@ resource "google_compute_firewall" "legalease_allow_webui" {
   allow {
     protocol = "tcp"
     ports    = ["3000"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}
+
+resource "google_compute_firewall" "legalease_allow_fastapi" {
+  name    = "allow-fastapi"
+  network = google_compute_network.legalease_network.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["8000"]
   }
 
   source_ranges = ["0.0.0.0/0"]
@@ -99,6 +135,16 @@ resource "google_compute_instance" "legalease_vm" {
   metadata = {
     ssh-keys = "ubuntu:${file("~/.ssh/legalease_gcp_key.pub")}"
   }
+
+  # Not necessary, but helpful in the provisioning process when we keep retrying zones for resource availability, so the firewalls don't get remade on next iterations
+  depends_on = [
+    google_compute_firewall.legalease_allow_ssh,
+    google_compute_firewall.legalease_allow_mosh,
+    google_compute_firewall.legalease_allow_ollama,
+    google_compute_firewall.legalease_allow_webui,
+    google_compute_firewall.legalease_allow_fastapi
+  ]
+
 }
 
 locals {
@@ -113,6 +159,15 @@ output "instance_zone" {
   value = google_compute_instance.legalease_vm[0].zone
 }
 
-output "webui_url" {
-  value = "https://${local.vm_ip}:3000"
+output "ollama_url" {
+  value = "http://${local.vm_ip}:11434"
 }
+
+output "webui_url" {
+  value = "http://${local.vm_ip}:3000"
+}
+
+output "fastapi_url" {
+  value = "http://${local.vm_ip}:8000"
+}
+

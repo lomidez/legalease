@@ -1,8 +1,8 @@
 #!/bin/bash
 
-IP=$(cd terraform && terraform output -raw instance_ip)
+IP=$(cd terraform && terraform refresh &> /dev/null && terraform output -raw instance_ip)
 
-ssh-keygen -R "$IP"
+ssh-keygen -R "$IP" &> /dev/null
 
 cat > ansible/inventory.ini << EOF
 [gcp_instance]

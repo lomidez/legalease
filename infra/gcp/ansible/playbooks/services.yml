@@ -1,0 +1,25 @@
+---
+- name: Deploy Services (e.g., Ollama, WebUI, FastAPI)
+  hosts: "{{ target_host | default('legalease') }}"
+  vars:
+    repo_name: "CPSC5830-Team1"
+    repo_path: "/home/{{ ansible_user }}/{{ repo_name }}"
+  tasks: 
+  - name: Sync local repository
+    synchronize:
+      src: "../../../../../"
+      dest: "{{ repo_path }}"
+      rsync_opts:
+        - "--exclude-from=../../../../.gitignore"
+
+  - name: Deploy Ollama and WebUI
+    command: "./start.sh"
+    args:
+      chdir: "{{ repo_path }}/ollama"
+    become: true
+  
+  - name: Deploy FastAPI server
+    command: "./start.sh"
+    args:
+      chdir: "{{ repo_path }}/api"
+    become: true
