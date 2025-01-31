@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Deploy API 
         working-directory: ./api
-        run: ./start.sh
+        run: sudo ./start.sh
 
       - name: Health Check
         run: |
