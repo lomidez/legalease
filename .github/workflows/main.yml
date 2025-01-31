@@ -1,0 +1,21 @@
+name: main
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+jobs:
+  deploy-api:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy API 
+        working-directory: ./api
+        run: ./start.sh
+
+      - name: Health Check
+        run: |
+          echo "Wait 10 seconds before health check..."
+          sleep 10
+          curl -s http://localhost:8000/health || echo "API health check failed"

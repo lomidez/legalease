@@ -1,0 +1,69 @@
+---
+- name: Setup GitHub Actions Self-Hosted Runner
+  hosts: "{{ target_host | default('legalease') }}"
+  vars:
+    runner_version: "2.321.0"
+    runner_package: "actions-runner-linux-x64-{{ runner_version }}.tar.gz"
+    runner_folder: "/home/{{ ansible_user_id }}/actions-runner"
+    repo_name: "CPSC5830-Team1"
+  vars_prompt:
+  - name: runner_token
+    prompt: "Enter GitHub Actions runner token"
+    private: true 
+
+  tasks:
+    - name: Check if runner is already installed and configured
+      ansible.builtin.stat:
+        path: "{{ runner_folder }}/.runner"
+      register: runner_configured
+
+    - name: Install and configure runner
+      when: not runner_configured.stat.exists
+      block:
+        - name: Create directory
+          ansible.builtin.file:
+            path: "{{ runner_folder }}"
+            state: directory
+            mode: '0755'
+
+        - name: Download runner package
+          ansible.builtin.get_url:
+            url: "https://github.com/actions/runner/releases/download/v{{ runner_version }}/{{ runner_package }}"
+            dest: "{{ runner_folder }}/{{ runner_package }}"
+            mode: '0644'
+
+        - name: Extract runner package
+          ansible.builtin.unarchive:
+            src: "{{ runner_folder }}/{{ runner_package }}"
+            dest: "{{ runner_folder }}"
+            remote_src: yes
+            creates: "{{ runner_folder }}/run.sh"
+
+        - name: Remove existing runner configuration
+          ansible.builtin.command: "./config.sh remove --token {{ runner_token }}"
+          args:
+            chdir: "{{ runner_folder }}"
+          ignore_errors: true  # in case it's not configured yet
+
+        - name: Configure runner
+          ansible.builtin.command: "./config.sh --url https://github.com/davay/{{ repo_name }} --token {{ runner_token }} --unattended"
+          args:
+            chdir: "{{ runner_folder }}"
+
+        - name: Install Systemd service
+          ansible.builtin.command: "./svc.sh install"
+          args:
+            chdir: "{{ runner_folder }}"
+          become: true
+
+        - name: Start Systemd service
+          ansible.builtin.command: "./svc.sh start"
+          args:
+            chdir: "{{ runner_folder }}"
+          become: true
+
+        - name: Clean up downloaded archive
+          ansible.builtin.file:
+            path: "{{ runner_folder }}/{{ runner_package }}"
+            state: absent
+

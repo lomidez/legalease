@@ -16,6 +16,8 @@ This configuration only needs to be run once, locally.
 
 ## Quick Start 
 
+### Provisioning
+
 First, you will have to create a new project in GCP. Currently, the scripts assume the project to be named legalease-25wq. 
 
 Now, all new projects have a quota limit of 0 for GPUs. You have to send a request to GCP to increase that quota (see [here](https://stackoverflow.com/questions/53415180/gcp-error-quota-gpus-all-regions-exceeded-limit-0-0-globally). This cannot be done in Terraform (see [here](https://stackoverflow.com/questions/63598319/how-to-increase-quota-on-gcp-using-terraform-module)).
@@ -44,7 +46,7 @@ Now you can provision resources:
 To check the current state:
 
 ```
-terraform show
+./show_output.sh
 ```
 
 After provisioning, you can then set up the VM using Ansible. Start with generating the inventory, then run the setup script.
@@ -53,6 +55,8 @@ After provisioning, you can then set up the VM using Ansible. Start with generat
 ./3_generate_inventory.sh
 ./4_setup_vm.sh
 ```
+
+The `4_setup_vm.sh` script will prompt you for a GitHub Actions Self-Hosted Runner token, see below for details.
 
 At the end of the night to save cost, you may opt to stop the vm (but not terminate). Likewise, you may want to start the vm the next morning. Helper scripts have been provided too:
 
@@ -72,6 +76,18 @@ Note 2: Your auth expires after some time, so if you see an error just login aga
 ```
 gcloud auth application-default login
 ```
+
+### CI/CD
+
+We'll be using GitHub Actions Self-Hosted Runners. First, you'll have to add a new self-hosted runner in GitHub.
+
+![](assets/images/runner.png)
+
+The instructions will give some shell commands to install it, but we'll be using an ansible playbook instead to configure this. All we need is this token -- this token will be shown in plaintext, it is a one-time use that expires after a short period if unused. Though it's less sensitive, it will be blurred out below.
+
+![](assets/images/token.png)
+
+Paste this token into the prompt after running `4_setup_vm.sh`. This will setup ci/cd for workflows defined in `.github/workflows/main.yml`.
 
 ## First Time? 
 
@@ -98,9 +114,9 @@ Different zones have different resource availability, even within the same regio
 
 For certain applications, certain regions can sometimes be more suitable than other regions due to general availability of resources. 
 
-For this project, we will select `us-central1` (Iowa) as our region.`us-west1` kept throwing resource availability errors due to GPUs being fully used.
+The specific zone isn't very important, biggest issue is resource availability. Anecdotally, it seems easier to get resources during the night? 
 
-The specific zone isn't very important, but biggest issue was again resource availability. Whatever we have in code right now is what worked at the time.
+Anyhow, our provisioning script will loop through all US zones with an Nvidia T4 until it is able to provision one. 
 
 For more reading on regions and zones, see [here](https://cloud.google.com/compute/docs/regions-zones)
 
@@ -117,7 +133,6 @@ This GPU is an additional cost to the base machine type, and the cheapest that s
 There are some discounts applied to this, but the total cost comes down to around $204.12/month.
 
 Image type is just whatever image/OS used to initialize the VM. 
-
 
 ### Terraform
 
