@@ -27,3 +27,7 @@ __pycache__
 notebooks/QLoRA/business_llm
 notebooks/QLoRA/business_qlora_model
 notebooks/QLoRA/output
+
+
+#venv environments
+/notebooks/QLoRA/QLORA3
