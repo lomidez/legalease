@@ -21,3 +21,9 @@ terraform_error.log
 
 # Fastapi
 __pycache__
+
+
+#Model Training Weights
+notebooks/QLoRA/business_llm
+notebooks/QLoRA/business_qlora_model
+notebooks/QLoRA/output
