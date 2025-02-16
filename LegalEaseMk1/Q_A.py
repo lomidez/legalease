@@ -1,4 +1,5 @@
 from chat_history import get_chat_history, save_chat_history
+from rag import query_rag
 
 
 def get_prompt():
@@ -22,7 +23,7 @@ def main():
         if user_input == 'quit':
             break
         else:
-            rag_context = "Lisa loves Putin and what he stands for, since 2017 she has been a Putin supporter."#userag(user_input)
+            rag_context, sources = query_rag("ben loves bianca censori")
             chat_history = "\n".join(get_chat_history())
             
             user_input_with_context = prompt.format(user_input=user_input, rag_context=rag_context)
