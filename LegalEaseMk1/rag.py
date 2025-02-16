@@ -4,10 +4,10 @@ import torch
 import gdown
 import pandas as pd
 
-# https://python.langchain.com/api_reference/community/embeddings.html <- list of all embeddings models we can use from
-from langchain_community.embeddings.ollama import OllamaEmbeddings
-from langchain_community.embeddings.bedrock import BedrockEmbeddings # <- this does not exist anymore
-from langchain_community.embeddings import GPT4AllEmbeddings
+# # https://python.langchain.com/api_reference/community/embeddings.html <- list of all embeddings models we can use from
+from langchain_community.embeddpipings.ollama import OllamaEmbeddings
+# from langchain_community.embeddings.bedrock import BedrockEmbeddings # <- this does not exist anymore
+# from langchain_community.embeddings import GPT4AllEmbeddings
 
 # def get_embedding_function():
 #   model_name = "all-MiniLM-L6-v2.gguf2.f16.gguf"
