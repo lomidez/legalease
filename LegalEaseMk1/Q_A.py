@@ -1,6 +1,6 @@
 from chat_history import get_chat_history, save_chat_history
 from rag import query_rag
-
+from model import generate_response
 
 def get_prompt():
     with open("prompt.txt", "r") as file:
@@ -10,7 +10,6 @@ def get_prompt():
 
 
 def main():
-    
     
     print("Welcome to LegalEase! Ask a question and we will provide an answer.")
     
@@ -23,7 +22,8 @@ def main():
         if user_input == 'quit':
             break
         else:
-            rag_context, sources = query_rag("ben loves bianca censori")
+            rag_context, sources = query_rag(user_input)
+            print("-----------------------", rag_context, sources, "-----------------------")
             chat_history = "\n".join(get_chat_history())
             
             user_input_with_context = prompt.format(user_input=user_input, rag_context=rag_context)
@@ -31,7 +31,7 @@ def main():
             
             #print(chat_history)
             new_input = "Chat History:\n" + chat_history + "\n\n\n" +  user_input_with_context
-            llm_output = "Dont care pay for a lawyer cheap ass" #llm(new_input)
+            llm_output = generate_response(new_input)
             print("LegalEase:", llm_output)
             user_input_store = rag_context + "\n" + user_input
         
