@@ -1,0 +1,74 @@
+---
+- name: Initialize system
+  hosts: "{{ target_host | default('legalease') }}"
+  vars:
+    ubuntu_version: "{{ ansible_distribution_version | replace('.', '') }}" # 24.04 -> 2404
+  tasks:
+    - name: Add repositories
+      ansible.builtin.deb822_repository:
+        name: "{{ item.name }}"
+        suites: "{{ item.suites }}"
+        uris: "{{ item.uris }}"
+        signed_by: "{{ item.signed_by }}"
+        components: "{{ item.components | default(omit) }}"
+        types: deb
+        state: present
+      become: true
+      loop:
+        - name: nvidia-cuda
+          suites: [/]
+          uris: ["https://developer.download.nvidia.com/compute/cuda/repos/ubuntu{{ ubuntu_version }}/x86_64"]
+          signed_by: "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu{{ ubuntu_version }}/x86_64/3bf863cc.pub"
+        - name: nvidia-container-toolkit
+          suites: [/]
+          uris: "https://nvidia.github.io/libnvidia-container/stable/deb/amd64"
+          signed_by: "https://nvidia.github.io/libnvidia-container/gpgkey"
+        - name: docker
+          suites: ["{{ ansible_distribution_release }}"]
+          uris: "https://download.docker.com/linux/ubuntu"
+          signed_by: "https://download.docker.com/linux/ubuntu/gpg"
+          components: [stable]
+
+    - name: Install packages
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - nvidia-container-toolkit
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-compose-plugin
+        - mosh
+      become: true
+
+    - name: Start Systemd services
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      become: true
+      loop:
+        - docker.service
+
+    - name: Verify NVIDIA Container Toolkit installation
+      ansible.builtin.command:
+        cmd: docker run --rm --gpus all nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04 nvidia-smi
+      register: nvidia_test
+      changed_when: false
+      become: true
+
+    - name: Display final message
+      vars:
+        msg: |
+             ============================================================================================
+            
+             Setup is complete.
+
+             NVIDIA Container Toolkit test results:
+             {{ nvidia_test.stdout if nvidia_test.stdout is defined else 'Test failed' }}
+
+             =============================================================================================
+      debug:
+        msg: "{{ msg.split('\n') }}"

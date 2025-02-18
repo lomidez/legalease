@@ -31,3 +31,10 @@ notebooks/QLoRA/output
 
 #venv environments
 /notebooks/QLoRA/QLORA3
+
+
+# pip / python
+lib/
+bin/
+lib64
+pyvenv.cfg
