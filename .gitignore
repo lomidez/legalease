@@ -19,22 +19,17 @@ terraform_error.log
 # Mac
 .DS_STORE
 
-# Fastapi
-__pycache__
-
-
-#Model Training Weights
+# Model Training Weights
 notebooks/QLoRA/business_llm
 notebooks/QLoRA/business_qlora_model
 notebooks/QLoRA/output
-
-
-#venv environments
-/notebooks/QLoRA/QLORA3
-
 
 # pip / python
 lib/
 bin/
 lib64
 pyvenv.cfg
+__pycache__
+
+# Node
+node_modules
