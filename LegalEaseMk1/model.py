@@ -1,23 +1,31 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, logging
 from peft import PeftModel
 import torch
+import bitsandbytes as bnb
 
-repo_name = "XCIT3D247/LegalEaseV1" 
 
-#Load base model
-base_model_name = "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"  # Ensure this matches your original base model
-base_model = AutoModelForCausalLM.from_pretrained(base_model_name, device_map="auto")
+logging.set_verbosity_error()
+import os
+os.environ["TORCH_LOGS"] = "ERROR"
 
-#Load fine-tuned adapter
-model = PeftModel.from_pretrained(base_model, repo_name)
+def init_model():
+    repo_name = "XCIT3D247/LegalEaseV1" 
 
-#Load tokenizer
-tokenizer = AutoTokenizer.from_pretrained(repo_name, use_fast=True)
+    #Load base model
+    base_model_name = "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"  # Ensure this matches your original base model
+    base_model = AutoModelForCausalLM.from_pretrained(base_model_name, device_map="auto")
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
+    #Load fine-tuned adapter
+    model = PeftModel.from_pretrained(base_model, repo_name)
 
-def generate_response(prompt, model, tokenizer, max_new_tokens=100):
+    #Load tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(repo_name, use_fast=True)
+
+    device = 'cuda'
+    model.to(device)
+    return model, tokenizer
+
+def generate_response(prompt, model, tokenizer, max_new_tokens=500):
     model.eval()
     tokenizer.pad_token = tokenizer.eos_token
 
@@ -28,7 +36,7 @@ def generate_response(prompt, model, tokenizer, max_new_tokens=100):
         padding=True,
         truncation=True,
         max_length=512
-    ).to(device)
+    ).to('cuda')
 
     # Generate output
     with torch.no_grad():
