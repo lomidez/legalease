@@ -14,6 +14,7 @@ const api = {
     }
     return data;
   },
+
   async sendChatMessage(
     chatId: string,
     message: string,

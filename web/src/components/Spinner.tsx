@@ -1,8 +1,9 @@
+import { MoreHorizontal } from 'lucide-react';
+
 export default function Spinner() {
   return (
-    <div className='relative h-12 w-12'>
-      <span className='spinner-child animate-spinner' />
-      <span className='spinner-child animate-spinner-delayed' />
+    <div className="flex justify-center items-center h-12">
+      <MoreHorizontal className="w-8 h-8 animate-pulse" />
     </div>
   );
 }
