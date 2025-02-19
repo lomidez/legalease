@@ -29,7 +29,7 @@ export default function ChatMessages({ messages, isLoading }: ChatMessagesProps)
             {error && (
               <div>
                 <img src={errorIcon} alt='error icon' className='w-12 h-12' />
-                <span> Error generating the response</span>
+                <span>Beep boop error</span>
               </div>
             )}
           </div>
