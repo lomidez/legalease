@@ -78,7 +78,7 @@ def main():
 
     ##TODO EXTRACT LLM to get parts of ARTICES of INCORPORATION
 
-    ##TODO we have to manually aprse that beast
+    ##TODO we have to manually aprse that fucker.
 
 
 main()
