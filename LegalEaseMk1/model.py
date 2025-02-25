@@ -1,4 +1,4 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer, logging
+'''from transformers import AutoModelForCausalLM, AutoTokenizer, logging
 from peft import PeftModel
 import torch
 import bitsandbytes as bnb
@@ -9,6 +9,7 @@ import os
 os.environ["TORCH_LOGS"] = "ERROR"
 
 def init_model():
+    
     repo_name = "XCIT3D247/LegalEaseV1" 
 
     #Load base model
@@ -23,7 +24,31 @@ def init_model():
 
     device = 'cuda'
     model.to(device)
+    return model, tokenizer'''
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
+import os
+
+# Suppress warnings
+os.environ["TORCH_LOGS"] = "ERROR"
+# Ensure CUDA is used
+device = "cuda" if torch.cuda.is_available() else "cpu"
+def init_model():
+    base_model_name = "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"
+
+
+    print(device)
+    # Load GPTQ base model (DO NOT use BitsAndBytesConfig)
+    model = AutoModelForCausalLM.from_pretrained(
+        base_model_name,
+        device_map="auto"
+    )
+
+    # Load tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(base_model_name, use_fast=True)
+
     return model, tokenizer
+
 
 def generate_response(prompt, model, tokenizer, max_new_tokens=500):
     model.eval()
@@ -34,9 +59,8 @@ def generate_response(prompt, model, tokenizer, max_new_tokens=500):
         prompt,
         return_tensors="pt",
         padding=True,
-        truncation=True,
-        max_length=512
-    ).to('cuda')
+        truncation=True
+    ).to(device)
 
     # Generate output
     with torch.no_grad():
@@ -50,8 +74,13 @@ def generate_response(prompt, model, tokenizer, max_new_tokens=500):
     # Decode response
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
     
-    # Extract the response after the input
-    if "[/INST]" in response:
-        response = response.split("[/INST]")[-1].strip()
-    
     return response
+
+def test_model():
+    model, tokenizer = init_model()
+    prompt = "What is the importance of contract law in business?"
+    response = generate_response(prompt, model, tokenizer)
+    print("Model Response:", response)
+
+# Run the test
+###test_model()

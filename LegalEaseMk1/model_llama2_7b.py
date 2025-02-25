@@ -10,7 +10,6 @@ with open('secrets.json', 'r') as file:
     hf_token = secrets["HF_READ_TOKEN"]
 login(token=hf_token)
 
-
 logging.set_verbosity_error()
 import os
 os.environ["TORCH_LOGS"] = "ERROR"
@@ -23,7 +22,6 @@ def init_model():
     tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat-hf", device_map="auto")
     model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-2-7b-chat-hf", device_map="auto")
     """
-
     tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-8B", device_map="auto")
     model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3.1-8B", device_map="auto")
 
@@ -31,12 +29,24 @@ def init_model():
     try:
         model.to(device)
     except:
-        device = 'cuda'
+        device = 'cpu'  # If CUDA is unavailable, fall back to CPU
     return model, tokenizer
 
-def generate_response(prompt, model, tokenizer, max_new_tokens=500):
+def generate_response(prompt, model, tokenizer, max_new_tokens=5000):
     model.eval()
-    tokenizer.pad_token = tokenizer.eos_token
+
+    # Tokenize the prompt and send to the same device as the model
+    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+
+    # Generate a response using max_new_tokens
+    output = model.generate(input_ids=inputs['input_ids'], max_new_tokens=max_new_tokens)
+
+    # Decode the response
+    response = tokenizer.decode(output[0], skip_special_tokens=True)
+
+    return response
+
+    '''tokenizer.pad_token = tokenizer.eos_token
 
     # Ensure the model is on the same device as the inputs
     try:
@@ -71,3 +81,4 @@ def generate_response(prompt, model, tokenizer, max_new_tokens=500):
         response = response[len(prompt):].strip()
 
     return response
+'''

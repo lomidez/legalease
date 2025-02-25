@@ -23,4 +23,5 @@ BAD_IDEA
 Use The following Context to help you answer: {rag_context}
 Classify the following Summary: 
 {summary} 
-Respond with only LLC, NON_PROFIT, CORP, OTHER, BAD_IDEA.
+Respond with only  a single term: LLC, NON_PROFIT, CORP, OTHER, BAD_IDEA.
+|||

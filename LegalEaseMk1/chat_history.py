@@ -1,31 +1,3 @@
-from langchain.memory import ConversationBufferMemory
-import os
-
-CHAT_HISTORY_FILE = "chat_history.txt"
-
-# Initialize LangChain Memory
-memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-
-def get_chat_history():
-    """Retrieve chat history from LangChain memory."""
-    return memory.load_memory_variables({})["chat_history"]
-
-def save_chat_history(user_query, llm_output):
-    """Store chat history in LangChain memory and a file."""
-    memory.save_context({"input": user_query}, {"output": llm_output})
-    
-    with open(CHAT_HISTORY_FILE, "a", encoding="utf-8") as file:
-        file.write(f"User: {user_query}\n")
-        file.write(f"Assistant: {llm_output}\n\n")
-
-def clear_chat_history():
-    """Clear chat history (useful for resetting the session)."""
-    memory.clear()
-    if os.path.exists(CHAT_HISTORY_FILE):
-        os.remove(CHAT_HISTORY_FILE)
-
-
-'''
 import os
 CHAT_HISTORY_FILE = "chat_history.txt"
 SUMMARY_FILE = 'summary.txt'
@@ -67,4 +39,3 @@ def save_summary(llm_output):
         llm_output = llm_output.replace("\n", " ").replace("\r", " ")
         # Store
         file.write(f"Assistant: {llm_output}\n\n")
-'''
