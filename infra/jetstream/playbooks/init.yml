@@ -40,6 +40,7 @@
         state: present
         update_cache: yes
       loop:
+        - cuda-toolkit
         - nvidia-container-toolkit
         - docker-ce
         - docker-ce-cli
@@ -49,6 +50,7 @@
         - python3.11
         - python3.11-distutils
         - python3.11-venv
+        - python3.11-dev
       become: true
 
     - name: Start Systemd services
