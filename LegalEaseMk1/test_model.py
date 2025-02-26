@@ -1,8 +1,12 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, TextStreamer
+
 from rag import query_rag  # Assuming query_rag retrieves relevant RAG context
 
+
 def init_model():
-    model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", device_map="auto")
+    model = AutoModelForCausalLM.from_pretrained(
+        "mistralai/Mistral-7B-Instruct-v0.2", device_map="auto"
+    )
     tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
 
     # Set pad token to eos token (but explicitly define it)
@@ -10,16 +14,20 @@ def init_model():
 
     return model, tokenizer
 
+
 # Conversation history
 messages = []
 
+
 def append_message(role, content):
     messages.append({"role": role, "content": content})
+
 
 def get_prompt():
     """Reads the system instruction prompt from a file."""
     with open("prompt.txt", "r") as file:
         return file.read().strip()
+
 
 def main():
     print("Initializing Model...")
@@ -44,11 +52,15 @@ def main():
         append_message("user", formatted_input)
 
         # Convert messages to model input
-        model_inputs = tokenizer.apply_chat_template(messages, return_tensors="pt", padding=True).to("cuda")
+        model_inputs = tokenizer.apply_chat_template(
+            messages, return_tensors="pt", padding=True
+        ).to("cuda")
 
+        streamer = TextStreamer(tokenizer, skip_prompt=True)
 
         generated_ids = model.generate(
             model_inputs,
+            streamer=streamer,
             max_new_tokens=500,
             do_sample=True,
         )
@@ -57,14 +69,15 @@ def main():
         output = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
         # Extract response text
-        llm_response = output.split('[/INST]')[-1].strip()
+        llm_response = output.split("[/INST]")[-1].strip()
 
-        print("-"*50)
+        print("-" * 50)
         print("LegalEase:", llm_response)
-        print("-"*50)
+        print("-" * 50)
 
         # Append assistant response
         append_message("assistant", llm_response)
+
 
 if __name__ == "__main__":
     main()

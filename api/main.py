@@ -25,7 +25,6 @@ def init_model():
     login(hf_token)
 
     hf_cache_dir = os.environ.get("HF_CACHE_DIR")
-    print(hf_cache_dir)
     model = AutoModelForCausalLM.from_pretrained(
         "mistralai/Mistral-7B-Instruct-v0.2", device_map="auto", cache_dir=hf_cache_dir
     )

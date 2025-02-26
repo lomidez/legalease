@@ -16,10 +16,9 @@ const api = {
   },
 
   async sendChatMessage(
-    chatId: string,
     message: string,
   ): Promise<Response["body"]> {
-    const res = await fetch(BASE_URL + `/chats/${chatId}`, {
+    const res = await fetch(BASE_URL + `/chat/complete`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message }),
