@@ -1,0 +1,3 @@
+Description: I want to sell donuts and coffee at a farmers market. I'll make donuts from scratch using organic ingredients. I'll sell them for $3 each. I'll make 100 donuts a day and sell them all. I'll also sell coffee from a cart using fair trade beans. I'll sell coffee for $4 a cup. I'll sell 200 cups a day and make a profit.
+Summary: The user plans to sell homemade donuts and coffee at a farmers market. They will make donuts from scratch using organic ingredients and sell them for $3 each. They aim to sell 100 donuts per day. They will also sell coffee from a cart using fair trade beans, selling 200 cups per day for $4 each, generating a profit.
+Class: LLC

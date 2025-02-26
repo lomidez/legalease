@@ -28,6 +28,11 @@
           uris: "https://download.docker.com/linux/ubuntu"
           signed_by: "https://download.docker.com/linux/ubuntu/gpg"
           components: [stable]
+        - name: deadsnakes
+          suites: ["{{ ansible_distribution_release }}"]
+          uris: "https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu"
+          signed_by: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF23C5A6CF475977595C89F51BA6932366A755776"
+          components: [main]
 
     - name: Install packages
       ansible.builtin.apt:
@@ -35,12 +40,17 @@
         state: present
         update_cache: yes
       loop:
+        - cuda-toolkit
         - nvidia-container-toolkit
         - docker-ce
         - docker-ce-cli
         - containerd.io
         - docker-compose-plugin
         - mosh
+        - python3.11
+        - python3.11-distutils
+        - python3.11-venv
+        - python3.11-dev
       become: true
 
     - name: Start Systemd services

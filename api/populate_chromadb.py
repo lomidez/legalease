@@ -1,6 +1,6 @@
 """
 apt install python3-pip
-pip3 install pandas transformers subword-nmt nltk pypdf langchain_community boto3 gpt4all chromadb
+pip3 install pandas transformers subword-nmt nltk pypdf langchain_community boto3 gpt4all chromadb langchain
 
 # Must Install all of the following:
 !pip install pdfplumber
@@ -20,7 +20,7 @@ import pandas as pd
 import argparse
 import shutil
 from langchain.document_loaders.pdf import PyPDFDirectoryLoader
-from langchain.text_splitters import RecursiveCharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
 from langchain.vectorstores import Chroma
 from langchain_community.embeddings.ollama import OllamaEmbeddings
@@ -30,13 +30,23 @@ from langchain.prompts import ChatPromptTemplate
 from transformers import pipeline
 
 # Initialize variables
-# Initialize variables
-curr_path = file_path = os.path.abspath(__file__)
-print('curr path', curr_path)
-FOLDER_WITH_PDFs = "/mnt/c/Users/YourUser/Documents/data_rag"  
-CHROMA_PATH = "/mnt/c/Users/YourUser/Documents/chroma_db" 
-DATA_PATH = FOLDER_WITH_PDFs
+curr_path = os.path.abspath(__file__)
+api_index = curr_path.find("/api")
 
+# If "/api" is found in the path, replace it with "/docs"
+if api_index != -1:
+    new_path = curr_path[:api_index] + "/" 
+else:
+    new_path = curr_path  # If "/api" is not found, keep the original path
+
+
+print('      999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999')
+FOLDER_WITH_PDFs = "/mnt/c/Users/YourUser/Documents/data_rag"  
+CHROMA_PATH = new_path + "datasets/chroma_db" 
+DATA_PATH = new_path + 'docs'
+print("doc path", DATA_PATH)
+
+print('chroma path', CHROMA_PATH)
 
 def get_embedding_function():
     model_name = "all-MiniLM-L6-v2.gguf2.f16.gguf"

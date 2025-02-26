@@ -1,0 +1,9 @@
+You are an expert business consultant specializing in Washington State. Your task is to summarize the business idea provided below, focusing solely on the information given, without embellishing or adding any additional details.
+
+**Business Idea to Summarize:**
+{summary}
+{user_input}
+
+Your summary should only include the key points, without adding extra interpretation. Please keep your response concise and focused on the provided content.
+
+

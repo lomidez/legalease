@@ -20,14 +20,16 @@ def get_prompt():
 
 def main():
     
-    print("Welcome to LegalEase! Ask a question and we will provide an answer.")
-    
     #get prompt from prompt.txt
+    print("Initializing Models...")
     prompt = get_prompt()
     model, tokenizer = init_model()
+    print("Model Initialization Complete.")
     
     while True:
         
+        print("Welcome to LegalEase! Ask a question and we will provide an answer.")
+    
         user_input = input("Ask a question or type 'quit' to exit: ")
         if user_input == 'quit':
             break
@@ -42,8 +44,8 @@ def main():
             
             #print(chat_history)
             new_input = user_input_with_context
-            print(new_input)
-            llm_output = generate_response(new_input, model, tokenizer)
+            #print(new_input)
+            llm_output = generate_response(user_input, model, tokenizer)
             print("LegalEase:", llm_output)        
             save_chat_history(user_input, llm_output)
 
