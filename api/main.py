@@ -13,10 +13,6 @@ from rag import query_rag
 ### MODELS ###
 
 
-class ChatResponse(BaseModel):
-    id: str
-
-
 class Message(BaseModel):
     message: str
 
@@ -27,10 +23,15 @@ class Message(BaseModel):
 def init_model():
     hf_token = os.environ.get("HF_TOKEN")
     login(hf_token)
+
+    hf_cache_dir = os.environ.get("HF_CACHE_DIR")
+    print(hf_cache_dir)
     model = AutoModelForCausalLM.from_pretrained(
-        "mistralai/Mistral-7B-Instruct-v0.2", device_map="auto"
+        "mistralai/Mistral-7B-Instruct-v0.2", device_map="auto", cache_dir=hf_cache_dir
     )
-    tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
+    tokenizer = AutoTokenizer.from_pretrained(
+        "mistralai/Mistral-7B-Instruct-v0.2", cache_dir=hf_cache_dir
+    )
 
     # Set pad token to eos token (but explicitly define it)
     tokenizer.pad_token = tokenizer.eos_token
@@ -62,7 +63,6 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    # TODO: Need to change when hosting on jetstream
     allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
@@ -92,6 +92,11 @@ async def health_check():
 
 
 # return complete response, maybe later add /chat/stream
-@app.post("/chat/complete", response_model=ChatResponse)
-async def create_chat_session():
-    return ChatResponse(id="abc")
+@app.post("/chat/complete")
+async def generate_complete_response(message: Message):
+    return message
+
+
+@app.get("/messages")
+async def get_messages():
+    return messages

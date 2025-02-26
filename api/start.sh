@@ -1,11 +1,11 @@
 #!/bin/bash
 
-read -sp "Enter your Hugging Face token: " HF_TOKEN
+read -sp "Enter your HuggingFace token: " HF_TOKEN
 echo ""
 
 if [ "$(uname)" = "Linux" ] && command -v nvidia-smi &> /dev/null; then
     echo "Linux with GPU detected; Using Docker compose"
-    HF_TOKEN=$HF_TOKEN docker compose up
+    HF_TOKEN=$HF_TOKEN docker compose up --build
 
     # detached
     # docker compose up -d

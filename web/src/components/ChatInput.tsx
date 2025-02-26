@@ -1,4 +1,4 @@
-import useAutosize from '@/hooks/useAutoSize';
+import useAutoSize from '@/hooks/useAutoSize';
 import sendIcon from '@/assets/send.svg';
 import { KeyboardEvent, RefObject } from 'react';
 import { ChatInputProps } from '@/types/chat';
