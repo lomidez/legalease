@@ -1,14 +1,13 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer, StoppingCriteriaList
+from transformers import AutoModelForCausalLM, AutoTokenizer
 from rag import query_rag  # Assuming query_rag retrieves relevant RAG context
-import torch
 
 def init_model():
     model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", device_map="auto")
     tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
-    
+
     # Set pad token to eos token (but explicitly define it)
     tokenizer.pad_token = tokenizer.eos_token
-    
+
     return model, tokenizer
 
 # Conversation history
@@ -59,11 +58,11 @@ def main():
 
         # Extract response text
         llm_response = output.split('[/INST]')[-1].strip()
-        
+
         print("-"*50)
         print("LegalEase:", llm_response)
         print("-"*50)
-        
+
         # Append assistant response
         append_message("assistant", llm_response)
 

@@ -4,7 +4,7 @@ import pandas as pd
 from langchain_community.embeddings import GPT4AllEmbeddings
 from langchain_chroma import Chroma
 
-CHROMA_PATH = "/media/volume/LegalEaseMaxim/CPSC5830-Team1/LegalEaseMk1/chroma_db"
+CHROMA_PATH = "chroma_db"
 
 def get_embedding_function():
   model_name = "all-MiniLM-L6-v2.gguf2.f16.gguf"
