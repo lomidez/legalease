@@ -1,6 +1,6 @@
 import { RefObject, useLayoutEffect, useRef, useState } from "react";
 
-export default function useAutosize(
+export default function useAutoSize(
   message: string,
 ): RefObject<HTMLTextAreaElement> {
   const ref = useRef<HTMLTextAreaElement>(null);

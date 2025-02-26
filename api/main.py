@@ -1,12 +1,16 @@
-from typing import Optional, Literal
+### IMPORTS ###
+import os
+
 from fastapi import FastAPI
-from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
+from huggingface_hub import login
 from pydantic import BaseModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
+
 from rag import query_rag
 
-import asyncio
+### MODELS ###
 
 
 class ChatResponse(BaseModel):
@@ -17,7 +21,12 @@ class Message(BaseModel):
     message: str
 
 
+### HELPERS ###
+
+
 def init_model():
+    hf_token = os.environ.get("HF_TOKEN")
+    login(hf_token)
     model = AutoModelForCausalLM.from_pretrained(
         "mistralai/Mistral-7B-Instruct-v0.2", device_map="auto"
     )
@@ -39,7 +48,15 @@ def get_prompt():
         return file.read().strip()
 
 
+### GLOBAL VARS ###
+
+model = None
+tokenizer = None
+system_prompt = ""
 messages = []
+
+
+### INIT ###
 
 app = FastAPI()
 
@@ -53,19 +70,20 @@ app.add_middleware(
 )
 
 
-async def generate_text_stream(message: str):
-    response = f"Beep Boop. This is a test. \nYour message was: {message}"
-    await asyncio.sleep(2)
-    for char in response:
-        await asyncio.sleep(0.1)
-        yield f"data: {char}\n\n"
+### ROUTES ###
 
 
-@app.get("/")
-def read_root():
+# initialize on server startup
+@app.on_event("startup")
+async def startup_event():
+    global model, tokenizer, system_prompt
+
+    print("Initializing model...")
     model, tokenizer = init_model()
+    print("Loading system prompts...")
+    system_prompt = get_prompt()  # Load instructions from prompt.txt
     messages.append({"role": "system", "content": system_prompt})
-    return {"Hello": "World"}
+    print("System is ready...")
 
 
 @app.get("/health")
@@ -73,15 +91,7 @@ async def health_check():
     return {"status": "healthy", "service": "api"}
 
 
-@app.post("/chats", response_model=ChatResponse)
+# return complete response, maybe later add /chat/stream
+@app.post("/chat/complete", response_model=ChatResponse)
 async def create_chat_session():
     return ChatResponse(id="abc")
-
-
-# TODO: I can't get the SSE version to work
-@app.post("/chats/{chat_id}")
-async def send_chat_message(chat_id: str, message: Message):
-    print(message)
-    return StreamingResponse(
-        generate_text_stream(message.message), media_type="text/event-stream"
-    )
