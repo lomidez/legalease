@@ -2,8 +2,8 @@ import { RefObject, useLayoutEffect, useRef, useState } from "react";
 
 export default function useAutoSize(
   message: string,
-): RefObject<HTMLTextAreaElement> {
-  const ref = useRef<HTMLTextAreaElement>(null);
+): RefObject<HTMLTextAreaElement | null> {
+  const ref = useRef<HTMLTextAreaElement | null>(null);
   const [borderWidth, setBorderWidth] = useState<number>(0);
 
   // useLayoutEffect rather than useEffect because effect mutates the dom node

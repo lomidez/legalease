@@ -4,7 +4,7 @@ import { KeyboardEvent, RefObject } from 'react';
 import { ChatInputProps } from '@/types/chat';
 
 export default function ChatInput({ newMessage, isLoading, setNewMessage, submitNewMessage }: ChatInputProps) {
-  const textareaRef: RefObject<HTMLTextAreaElement> = useAutoSize(newMessage)
+  const textareaRef: RefObject<HTMLTextAreaElement | null> = useAutoSize(newMessage)
 
   // only handle keyboard event happening in textarea
   function handleKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
@@ -26,7 +26,7 @@ export default function ChatInput({ newMessage, isLoading, setNewMessage, submit
         onKeyDown={handleKeyDown}
         className="w-full resize-none border focus:outline-none rounded-lg p-3"
       />
-      <button onClick={submitNewMessage} className="!bg-transparent !border-none p-0">
+      <button onClick={submitNewMessage} className="!bg-transparent !border-none p-0 ml-4">
         <img src={sendIcon} alt="send" className='w-10 h-10' />
       </button>
     </div>

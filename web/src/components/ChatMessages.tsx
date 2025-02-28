@@ -18,7 +18,7 @@ export default function ChatMessages({ messages, isLoading }: ChatMessagesProps)
               <img src={assistantIcon} alt='assistant icon' className='w-12 h-12' />
             )}
           </div>
-          <div className={`max-w-[80%] text-left flex-1 rounded-xl p-4 ${role === 'user'
+          <div className={`w-[70%] text-left flex-1 rounded-xl p-4 ${role === 'user'
             ? 'bg-blue-50 text-blue-900'
             : 'bg-gray-100 text-gray-800'}`}>
             {(loading && !content) ? <Spinner /> :
