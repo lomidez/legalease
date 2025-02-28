@@ -13,11 +13,11 @@ export async function* parseSSEStream(
       const { value, done } = await reader.read();
       if (done) break
 
-      for (const line of value.split('\n\n')) {
+      for (let line of value.split('\n\n')) {
         // remove "data: "
-        const jsonString = line.slice(6)
+        line = line.slice(6)
         try {
-          let parsedString = JSON.parse(jsonString).replace()
+          let parsedString = line.replace(/"/g, '').replace(/\\n/g, '\n')
           if (parsedString.endsWith("</s>")) {
             parsedString = parsedString.substring(0, parsedString.length - 4);
           }

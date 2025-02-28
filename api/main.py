@@ -2,6 +2,7 @@
 import os
 import json
 
+from collections import defaultdict
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
@@ -44,8 +45,8 @@ def init_model():
     return model, tokenizer
 
 
-def append_message(role, content):
-    messages.append({"role": role, "content": content})
+def append_message(session_id, role, content):
+    message_history[session_id].append({"role": role, "content": content})
 
 
 def get_prompt():
@@ -59,7 +60,8 @@ def get_prompt():
 model = None
 tokenizer = None
 system_prompt = ""
-messages = []
+message_history = defaultdict(list)
+next_session_id = 0
 
 
 ### INIT ###
@@ -87,7 +89,6 @@ async def startup_event():
     model, tokenizer = init_model()
     print("Loading system prompts...")
     system_prompt = get_prompt()  # Load instructions from prompt.txt
-    messages.append({"role": "system", "content": system_prompt})
     print("System is ready...")
 
 
@@ -96,8 +97,8 @@ async def health_check():
     return {"status": "healthy", "service": "api"}
 
 
-@app.post("/chat")
-async def generate_streaming_response(chatRequest: ChatRequest):
+@app.post("/chat/{session_id}")
+async def generate_streaming_response(session_id: int, chatRequest: ChatRequest):
     # This is SSE, two newlines signifies end of event
     async def stream_generator(streamer):
         # a buffer to store responses, so the complete respond can be appended at the end
@@ -108,7 +109,7 @@ async def generate_streaming_response(chatRequest: ChatRequest):
                 yield f"data: {json.dumps(text_chunk)}\n\n"
 
             response = "".join(responses)
-            append_message("assistant", response)
+            append_message(session_id, "assistant", response)
         except Exception as e:
             yield f"data: [Error: {json.dumps(e)}]\n\n"
 
@@ -119,11 +120,11 @@ async def generate_streaming_response(chatRequest: ChatRequest):
     formatted_input = (
         f"Relevant information: {rag_context}\n\nUser: {chatRequest.message}"
     )
-    append_message("user", formatted_input)
+    append_message(session_id, "user", formatted_input)
 
     # Convert messages to model input
     model_inputs = tokenizer.apply_chat_template(
-        messages, return_tensors="pt", padding=True
+        message_history[session_id], return_tensors="pt", padding=True
     ).to("cuda")
 
     # Start generating response
@@ -139,4 +140,14 @@ async def generate_streaming_response(chatRequest: ChatRequest):
 
 @app.get("/messages")
 async def get_messages():
-    return messages
+    return message_history
+
+
+@app.get("/chat")
+async def create_chat_session():
+    global next_session_id
+    next_session_id += 1
+    message_history[next_session_id].append(
+        {"role": "system", "content": system_prompt}
+    )
+    return next_session_id

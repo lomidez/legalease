@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useImmer } from 'use-immer';
 import { Message } from '@/types/chat';
 import ChatMessages from '@/components/ChatMessages';
@@ -7,6 +7,7 @@ import api from '@/api';
 import { parseSSEStream } from '@/utils';
 
 export default function Chatbot() {
+  const sessionIdRef = useRef<number | null>(null);
   const [messages, setMessages] = useImmer<Message[]>([
     {
       role: 'assistant',
@@ -40,7 +41,16 @@ So tell me, what sort of business do you have in mind?
     setNewMessage('');
 
     try {
-      const stream = await api.sendChatMessage(trimmedMessage);
+      if (!sessionIdRef.current) {
+        sessionIdRef.current = await api.createChat();
+      }
+      console.log("SESSIONID: " + sessionIdRef.current)
+
+      if (sessionIdRef.current === null) {
+        throw new Error("Session ID is null, something went wrong!")
+      }
+
+      const stream = await api.sendChatMessage(sessionIdRef.current, trimmedMessage);
 
       // this is done so that text shows up one by one
       for await (const textChunk of parseSSEStream(stream)) {
