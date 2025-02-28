@@ -6,15 +6,21 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from huggingface_hub import login
 from pydantic import BaseModel
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, AsyncTextIteratorStreamer
+import asyncio
 
+from threading import Thread
 from rag import query_rag
 
 ### MODELS ###
 
 
-class Message(BaseModel):
+class ChatRequest(BaseModel):
     message: str
+
+
+class ChatResponse(BaseModel):
+    id: str
 
 
 ### HELPERS ###
@@ -62,7 +68,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -90,10 +96,38 @@ async def health_check():
     return {"status": "healthy", "service": "api"}
 
 
-# return complete response, maybe later add /chat/stream
-@app.post("/chat/complete")
-async def generate_complete_response(message: Message):
-    return message
+@app.post("/chat")
+async def generate_streaming_response(chatRequest: ChatRequest):
+    async def stream_generator():
+        try:
+            async for text_chunk in streamer:
+                yield f"data: {text_chunk}\n\n"
+        except Exception as e:
+            yield f"data: [Error: {str(e)}]\n\n"
+
+    # Retrieve RAG context
+    rag_context, sources = query_rag(chatRequest.message)
+
+    # Format user message with RAG context
+    formatted_input = (
+        f"Relevant information: {rag_context}\n\nUser: {chatRequest.message}"
+    )
+    append_message("user", formatted_input)
+
+    # Convert messages to model input
+    model_inputs = tokenizer.apply_chat_template(
+        messages, return_tensors="pt", padding=True
+    ).to("cuda")
+
+    # Start generating response
+    streamer = AsyncTextIteratorStreamer(tokenizer, skip_prompt=True)
+    generation_kwargs = dict(
+        inputs=model_inputs, streamer=streamer, max_new_tokens=500, do_sample=True
+    )
+    thread = Thread(target=model.generate, kwargs=generation_kwargs)
+    thread.start()
+
+    return StreamingResponse(stream_generator(), media_type="text/event-stream")
 
 
 @app.get("/messages")

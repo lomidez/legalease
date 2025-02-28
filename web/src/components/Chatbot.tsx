@@ -7,7 +7,6 @@ import api from '@/api';
 import { parseSSEStream } from '@/utils';
 
 export default function Chatbot() {
-  const [chatId, setChatId] = useState<string | null>(null);
   const [messages, setMessages] = useImmer<Message[]>([
     {
       role: 'assistant',
@@ -42,18 +41,8 @@ export default function Chatbot() {
     // empty out message
     setNewMessage('');
 
-    let chatIdOrNew: string | null = chatId;
     try {
-      if (!chatId) {
-        const { id } = await api.createChat();
-        setChatId(id);
-        chatIdOrNew = id;
-      }
-
-      if (chatIdOrNew === null) {
-        throw new Error("Chat ID is null, something went wrong!")
-      }
-      const stream = await api.sendChatMessage(chatIdOrNew, trimmedMessage);
+      const stream = await api.sendChatMessage(trimmedMessage);
 
       // this is done so that text shows up one by one
       for await (const textChunk of parseSSEStream(stream)) {
