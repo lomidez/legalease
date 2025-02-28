@@ -13,8 +13,7 @@ export default function Chatbot() {
       role: 'assistant',
       content: `Hi! I'm Legalease, your personal not-legally-certified business partner.
 Starting a business is confusing, so I want to help you every step along the way.
-Let's begin by choosing a business structure!
-So tell me, what sort of business do you have in mind?
+To begin, could you tell me what type of business you're looking to start?
       `,
       loading: false
     }

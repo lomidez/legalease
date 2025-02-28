@@ -8,19 +8,21 @@ import { RefObject } from 'react';
 export default function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
   const scrollContentRef: RefObject<HTMLDivElement> = useAutoScroll(isLoading);
   return (
-    <div ref={scrollContentRef}>
+    <div ref={scrollContentRef} className="space-y-6 py-4">
       {messages.map(({ role, content, loading, error }, idx) => (
-        <div key={idx} className="border-b border-gray-200 py-4">
-          {role === 'user' ? (
-            <img src={userIcon} alt='user icon' className='w-12 h-12' />
-          ) : (
-            <img src={assistantIcon} alt='assistant icon' className='w-12 h-12' />
-          )}
-          <div className='text-left'>
-            {(loading && !content) ? <Spinner />
-              : (role === 'assistant')
-                ? <div className="whitespace-pre-wrap">{content}</div>
-                : <div className="whitespace-pre-wrap">{content}</div>
+        <div key={idx} className={`flex items-start gap-6 ${role === 'user' ? 'flex-row-reverse' : ''}`}>
+          <div className="flex-shrink-0 mt-1">
+            {role === 'user' ? (
+              <img src={userIcon} alt='user icon' className='w-12 h-12' />
+            ) : (
+              <img src={assistantIcon} alt='assistant icon' className='w-12 h-12' />
+            )}
+          </div>
+          <div className={`max-w-[80%] text-left flex-1 rounded-xl p-4 ${role === 'user'
+            ? 'bg-blue-50 text-blue-900'
+            : 'bg-gray-100 text-gray-800'}`}>
+            {(loading && !content) ? <Spinner /> :
+              <div className="whitespace-pre-wrap">{content}</div>
             }
             {error && (
               <div>
@@ -29,7 +31,8 @@ export default function ChatMessages({ messages, isLoading }: ChatMessagesProps)
             )}
           </div>
         </div>
-      ))}
+      ))
+      }
     </div >
   );
 }
