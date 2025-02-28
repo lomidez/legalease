@@ -10,12 +10,10 @@ export default function Chatbot() {
   const [messages, setMessages] = useImmer<Message[]>([
     {
       role: 'assistant',
-      content: `
-        Hi! I'm Legalease, your personal not-legally-certified business partner.
-        Starting a business is confusing, so I want to help you every step along the way.
-
-        Let's begin by choosing a business structure!
-        So tell me, what sort of business do you have in mind?
+      content: `Hi! I'm Legalease, your personal not-legally-certified business partner.
+Starting a business is confusing, so I want to help you every step along the way.
+Let's begin by choosing a business structure!
+So tell me, what sort of business do you have in mind?
       `,
       loading: false
     }

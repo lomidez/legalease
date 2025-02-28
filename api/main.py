@@ -1,5 +1,6 @@
 ### IMPORTS ###
 import os
+import json
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,7 +8,6 @@ from fastapi.responses import StreamingResponse
 from huggingface_hub import login
 from pydantic import BaseModel
 from transformers import AutoModelForCausalLM, AutoTokenizer, AsyncTextIteratorStreamer
-import asyncio
 
 from threading import Thread
 from rag import query_rag
@@ -98,15 +98,22 @@ async def health_check():
 
 @app.post("/chat")
 async def generate_streaming_response(chatRequest: ChatRequest):
-    async def stream_generator():
+    # This is SSE, two newlines signifies end of event
+    async def stream_generator(streamer):
+        # a buffer to store responses, so the complete respond can be appended at the end
+        responses = []
         try:
             async for text_chunk in streamer:
-                yield f"data: {text_chunk}\n\n"
+                responses.append(text_chunk)
+                yield f"data: {json.dumps(text_chunk)}\n\n"
+
+            response = "".join(responses)
+            append_message("assistant", response)
         except Exception as e:
-            yield f"data: [Error: {str(e)}]\n\n"
+            yield f"data: [Error: {json.dumps(e)}]\n\n"
 
     # Retrieve RAG context
-    rag_context, sources = query_rag(chatRequest.message)
+    rag_context, _ = query_rag(chatRequest.message)
 
     # Format user message with RAG context
     formatted_input = (
@@ -127,7 +134,7 @@ async def generate_streaming_response(chatRequest: ChatRequest):
     thread = Thread(target=model.generate, kwargs=generation_kwargs)
     thread.start()
 
-    return StreamingResponse(stream_generator(), media_type="text/event-stream")
+    return StreamingResponse(stream_generator(streamer), media_type="text/event-stream")
 
 
 @app.get("/messages")

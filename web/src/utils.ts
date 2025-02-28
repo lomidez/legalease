@@ -11,17 +11,27 @@ export async function* parseSSEStream(
 
     while (true) {
       const { value, done } = await reader.read();
-      if (done) break;
+      if (done) break
 
-      for (const line of value.split('\n')) {
+      for (const line of value.split('\n\n')) {
         // remove "data: "
-        yield line.slice(6);
+        const jsonString = line.slice(6)
+        try {
+          let parsedString = JSON.parse(jsonString).replace()
+          if (parsedString.endsWith("</s>")) {
+            parsedString = parsedString.substring(0, parsedString.length - 4);
+          }
+          yield parsedString
+        } catch (e) {
+          console.error("Error parsing server response:", e)
+        }
       }
     }
   }
 }
 
 // I can't get the SSE version to work
+// The above is discount SSE
 
 //import { EventSourceParserStream } from "eventsource-parser/stream";
 //import { EventSourceMessage } from "./types/sse.ts";

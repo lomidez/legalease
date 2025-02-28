@@ -1,9 +1,7 @@
-import Markdown from 'react-markdown';
 import useAutoScroll from '@/hooks/useAutoScroll';
 import Spinner from '@/components/Spinner';
 import userIcon from '@/assets/user.svg';
 import assistantIcon from '@/assets/robot.svg';
-import errorIcon from '@/assets/error.svg';
 import { ChatMessagesProps } from '@/types/chat';
 import { RefObject } from 'react';
 
@@ -18,17 +16,14 @@ export default function ChatMessages({ messages, isLoading }: ChatMessagesProps)
           ) : (
             <img src={assistantIcon} alt='assistant icon' className='w-12 h-12' />
           )}
-          <div>
-            <div>
-              {(loading && !content) ? <Spinner />
-                : (role === 'assistant')
-                  ? <Markdown>{content}</Markdown>
-                  : <div>{content}</div>
-              }
-            </div>
+          <div className='text-left'>
+            {(loading && !content) ? <Spinner />
+              : (role === 'assistant')
+                ? <div className="whitespace-pre-wrap">{content}</div>
+                : <div className="whitespace-pre-wrap">{content}</div>
+            }
             {error && (
               <div>
-                <img src={errorIcon} alt='error icon' className='w-12 h-12' />
                 <span>Beep boop error</span>
               </div>
             )}
