@@ -14,4 +14,5 @@ if [ -n "$API_IP" ]; then
   echo "VITE_API_URL=http://${API_IP}:8000" > .env
 fi
 
+pnpm install
 pnpm run dev --host
