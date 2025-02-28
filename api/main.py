@@ -20,10 +20,6 @@ class ChatRequest(BaseModel):
     message: str
 
 
-class ChatResponse(BaseModel):
-    id: str
-
-
 ### HELPERS ###
 
 
