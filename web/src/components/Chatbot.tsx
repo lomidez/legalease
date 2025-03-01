@@ -3,6 +3,7 @@ import { useImmer } from 'use-immer';
 import { Message } from '@/types/chat';
 import ChatMessages from '@/components/ChatMessages';
 import ChatInput from '@/components/ChatInput';
+import DraftButton from '@/components/DraftButton';
 import api from '@/api';
 import { parseSSEStream } from '@/utils';
 
@@ -70,6 +71,11 @@ To begin, please tell me about your business ideas.`,
     }
   }
 
+
+function handlePrintMessages() {
+    console.log(messages);
+    alert(JSON.stringify(messages, null, 2)); 
+
   return (
     <div>
       <ChatMessages
@@ -84,6 +90,11 @@ To begin, please tell me about your business ideas.`,
         setNewMessage={setNewMessage}
         submitNewMessage={submitNewMessage}
       />
-    </div>
+        <DraftButton
+            label="Print Messages"
+            onClick={handlePrintMessages}
+            isLoading={isLoading}
+        />
+     </div>
   )
 }

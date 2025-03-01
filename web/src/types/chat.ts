@@ -21,3 +21,9 @@ export interface ChatInputProps {
   setNewMessage: (message: string) => void;
   submitNewMessage: () => Promise<void>;
 }
+
+export interface ButtonProps {
+    label: string;
+    onClick: () => void; 
+    isLoading: boolean; 
+}
