@@ -5,7 +5,6 @@ from langchain_community.embeddings import GPT4AllEmbeddings
 from langchain_chroma import Chroma
 
 CHROMA_PATH = "/media/volume/LegalEaseMaxim/CPSC5830-Team1/LegalEaseMk1/chroma_db"
-#CHROMA_PATH = "/media/volume/LegalEaseMaxim/CPSC5830-Team1/datasets/chroma_db" <- testing
 
 def get_embedding_function():
   model_name = "all-MiniLM-L6-v2.gguf2.f16.gguf"
@@ -21,7 +20,7 @@ def query_rag(query_text: str):
     embedding_function = get_embedding_function()
     db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
 
-    results = db.similarity_search_with_score(query_text, k=3)
+    results = db.similarity_search_with_score(query_text, k=1)
 
     filtered_results = [(doc, score) for doc, score in results if 0 <= score <= 1]
 
@@ -34,7 +33,5 @@ def query_rag(query_text: str):
         if raw_id:
             file_name = os.path.basename(raw_id.split(":")[0])
             sources_names.append(file_name)
-
-    print("RAG:", context_text)
 
     return context_text, sources_names
