@@ -4,6 +4,12 @@ services:
       - "8000:8000"
     build:
       context: .
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+      - HF_CACHE_DIR=/root/.cache/huggingface
+    volumes:
+      - huggingface_cache:/root/.cache/huggingface
+      - ./:/app  # for hot reload
     deploy:
       resources:
         reservations:
@@ -11,3 +17,5 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+volumes:
+  huggingface_cache:

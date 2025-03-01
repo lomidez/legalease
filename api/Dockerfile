@@ -1,18 +1,20 @@
 FROM nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04
 WORKDIR /app
 
-# Install conda
-RUN apt-get update && \
-  apt-get install -y wget && \
-  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
-  bash miniconda.sh -b -p /opt/conda && \
-  rm miniconda.sh
-ENV PATH="/opt/conda/bin:${PATH}"
+# Setup python3.11 and venv
+RUN apt update && \
+  apt install -y software-properties-common && \
+  add-apt-repository ppa:deadsnakes/ppa && \
+  apt update && \
+  apt install -y python3.11 python3.11-venv python3.11-dev
+RUN python3.11 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
-COPY environment.yml .
-RUN conda env create -f environment.yml
+# Install pip dependencies
+COPY ../requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Start server
 COPY . .
 EXPOSE 8000
-CMD ["conda", "run", "-n", "legalease", "--no-capture-output", "fastapi", "run", "--host", "0.0.0.0", "main.py"] 
+CMD ["fastapi", "run", "--host", "0.0.0.0", "main.py"] 
