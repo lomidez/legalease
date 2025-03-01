@@ -1,23 +1,27 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer, StoppingCriteriaList, logging
+from transformers import AutoModelForCausalLM, AutoTokenizer, StoppingCriteriaList
 from rag import query_rag  # Assuming query_rag retrieves relevant RAG context
 import torch
-import warnings
-import os
-import sys
-
-sys.stderr = open(os.devnull, 'w')  # Suppress all stderr output
-
-warnings.filterwarnings("ignore")
-logging.set_verbosity_error()
 
 def init_model():
-    model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", device_map="auto") # Base model 
-    tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
+    # Change this to your fine-tuned model name or local path
+    fine_tuned_model_path = "XCIT3D247/LegalEaseV2"  # If stored on Hugging Face
+    # fine_tuned_model_path = "./business_llm"  # If stored locally
 
-    # Set pad token to eos token (but explicitly define it)
+    print(f"Loading fine-tuned model from: {fine_tuned_model_path}")
+
+    model = AutoModelForCausalLM.from_pretrained(
+        fine_tuned_model_path, 
+        device_map="auto", 
+        torch_dtype=torch.bfloat16  # Ensure efficient memory usage
+    )
+    
+    tokenizer = AutoTokenizer.from_pretrained(fine_tuned_model_path)
+
+    # Ensure pad token is set correctly
     tokenizer.pad_token = tokenizer.eos_token
     
     return model, tokenizer
+
 
 # Conversation history
 messages = []
