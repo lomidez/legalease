@@ -75,7 +75,7 @@ To begin, please tell me about your business ideas.`,
 function handlePrintMessages() {
     console.log(messages);
     alert(JSON.stringify(messages, null, 2)); 
-
+}
   return (
     <div>
       <ChatMessages
@@ -91,7 +91,7 @@ function handlePrintMessages() {
         submitNewMessage={submitNewMessage}
       />
         <DraftButton
-            label="Print Messages"
+            label="Show Past Messages"
             onClick={handlePrintMessages}
             isLoading={isLoading}
         />
