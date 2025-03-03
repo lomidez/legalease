@@ -5,7 +5,7 @@ echo ""
 
 if [ "$(uname)" = "Linux" ] && command -v nvidia-smi &> /dev/null; then
     echo "Linux with GPU detected; Using Docker compose"
-    HF_TOKEN=$HF_TOKEN docker compose up --build
+    HF_TOKEN=$HF_TOKEN docker compose up --build 
 
     # detached
     # docker compose up -d
