@@ -14,15 +14,11 @@ from threading import Thread
 from rag import query_rag
 
 ### MODELS ###
-
-
 class ChatRequest(BaseModel):
     message: str
 
 
 ### HELPERS ###
-
-
 def init_model():
     hf_token = os.environ.get("HF_TOKEN")
     login(hf_token)
@@ -48,6 +44,11 @@ def append_message(session_id, role, content):
 def get_prompt():
     """Reads the system instruction prompt from a file."""
     with open("prompt.txt", "r") as file:
+        return file.read().strip()
+
+def get_sum_prompt():
+    """Reads the system instruction prompt from a file."""
+    with open("sum_prompt.txt", "r") as file:
         return file.read().strip()
 
 
@@ -85,6 +86,7 @@ async def startup_event():
     model, tokenizer = init_model()
     print("Loading system prompts...")
     system_prompt = get_prompt()  # Load instructions from prompt.txt
+    sum_prompt = get_sum_prompt()
     print("System is ready...")
 
 
@@ -147,3 +149,35 @@ async def create_chat_session():
         {"role": "system", "content": system_prompt}
     )
     return next_session_id
+
+@app.get("/summarize/{session_id}")
+async def summarize_history(session_id: int):
+    sum_prompt = get_sum_prompt()
+
+    # Fetch the message history for the session_id
+    message_history = await get_messages(session_id)
+    if session_id not in message_history:
+        return {"error": "Session not found"}
+
+    message_history_string = "\n".join(
+        [f"{message['role'].capitalize()}: {message['content']}" for message in message_history[session_id]]
+    )
+    summary = sum_prompt + message_history_string
+
+    async def stream_generator(streamer):
+        model_inputs = tokenizer.apply_chat_template(
+            summary, return_tensors="pt", padding=True
+        ).to("cuda")
+
+        streamer = AsyncTextIteratorStreamer(tokenizer, skip_prompt=True)
+        generation_kwargs = dict(
+            inputs=model_inputs, streamer=streamer, max_new_tokens=500, do_sample=True
+        )
+
+        thread = Thread(target=model.generate, kwargs=generation_kwargs)
+        thread.start()
+
+        while not streamer.is_done:
+            yield await streamer.get_next()
+
+    return StreamingResponse(stream_generator(AsyncTextIteratorStreamer), media_type="text/event-stream")

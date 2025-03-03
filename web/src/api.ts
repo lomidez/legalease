@@ -27,6 +27,20 @@ const api = {
     }
     return res.body;
   },
+  async summarize(
+    session_id: number | null
+  ): Promise<Response["body"]> {
+    const res = await fetch(`${BASE_URL}/summarize/${session_id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+  
+    if (!res.ok) {
+      return Promise.reject({ status: res.status, data: await res.json() });
+    }
+  
+    return res.body;
+  }
 };
 
 export default api;
