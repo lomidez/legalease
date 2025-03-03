@@ -26,7 +26,7 @@ export default function ChatMessages({ messages, isLoading }: ChatMessagesProps)
             }
             {error && (
               <div>
-                <span>Beep boop error</span>
+                <span>Beep boop error in chatmessages</span>
               </div>
             )}
           </div>
