@@ -35,6 +35,4 @@ def query_rag(query_text: str):
             file_name = os.path.basename(raw_id.split(":")[0])
             sources_names.append(file_name)
 
-    print("RAG:", context_text)
-
     return context_text, sources_names
