@@ -17,7 +17,7 @@ export async function* parseSSEStream(
         // remove "data: "
         line = line.slice(6)
         try {
-          let parsedString = line.replace(/"/g, '').replace(/\\n/g, '\n')
+          let parsedString = line.replace(/"/g, '').replace(/\\n/g, '\n').replace("u", '')
           if (parsedString.endsWith("</s>")) {
             parsedString = parsedString.substring(0, parsedString.length - 4);
           }

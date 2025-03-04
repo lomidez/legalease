@@ -150,34 +150,37 @@ async def create_chat_session():
     )
     return next_session_id
 
+
 @app.get("/summarize/{session_id}")
 async def summarize_history(session_id: int):
     sum_prompt = get_sum_prompt()
 
-    # Fetch the message history for the session_id
-    message_history = await get_messages(session_id)
-    if session_id not in message_history:
-        return {"error": "Session not found"}
-
     message_history_string = "\n".join(
-        [f"{message['role'].capitalize()}: {message['content']}" for message in message_history[session_id]]
+        [f"{message['role']}: {message['content']}" for message in message_history[session_id]]
     )
     summary = sum_prompt + message_history_string
+    print(summary)
 
+    full_sum = []
+    full_sum.append({"role": "system", "content": summary})
+
+    streamer = AsyncTextIteratorStreamer(tokenizer, skip_prompt=True)
+    print('#######################checkpoint#################')
     async def stream_generator(streamer):
-        model_inputs = tokenizer.apply_chat_template(
-            summary, return_tensors="pt", padding=True
-        ).to("cuda")
+        try:
+            async for text_chunk in streamer:
+                yield f"data: {json.dumps(text_chunk)}\n\n"
+        except Exception as e:
+            yield f"data: [Error: {json.dumps(e)}]\n\n"
 
-        streamer = AsyncTextIteratorStreamer(tokenizer, skip_prompt=True)
-        generation_kwargs = dict(
-            inputs=model_inputs, streamer=streamer, max_new_tokens=500, do_sample=True
-        )
+    model_inputs = tokenizer.apply_chat_template(
+                full_sum, return_tensors="pt", padding=True
+            ).to("cuda")
+    generation_kwargs = dict(
+        inputs = model_inputs, streamer=streamer, max_new_tokens=500, do_sample=True
+    )
 
-        thread = Thread(target=model.generate, kwargs=generation_kwargs)
-        thread.start()
-
-        while not streamer.is_done:
-            yield await streamer.get_next()
-
-    return StreamingResponse(stream_generator(AsyncTextIteratorStreamer), media_type="text/event-stream")
+    thread = Thread(target=model.generate, kwargs=generation_kwargs)
+    thread.start()
+  
+    return StreamingResponse(stream_generator(streamer), media_type="text/event-stream")
