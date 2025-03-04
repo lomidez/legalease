@@ -119,7 +119,8 @@ async def generate_streaming_response(session_id: int, chatRequest: ChatRequest)
         f"Relevant information: {rag_context}\n\nUser: {chatRequest.message}"
     )
     append_message(session_id, "user", formatted_input)
-
+    """print("\n\n\nSENT TO the model!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n")
+    print(message_history[session_id])"""
     # Convert messages to model input
     model_inputs = tokenizer.apply_chat_template(
         message_history[session_id], return_tensors="pt", padding=True
@@ -153,19 +154,6 @@ async def create_chat_session():
 
 @app.get("/summarize/{session_id}")
 async def summarize_history(session_id: int):
-    sum_prompt = get_sum_prompt()
-
-    message_history_string = "\n".join(
-    [f"{message['role']}: {message['content']}" for message in message_history[session_id] if message['role'] in ['user', 'assistant']]
-    )
-    summary = sum_prompt + message_history_string
-    print(summary)
-
-    full_sum = []
-    full_sum.append({"role": "system", "content": summary})
-    
-    streamer = AsyncTextIteratorStreamer(tokenizer, skip_prompt=True)
-    print('#######################checkpoint#################')
     async def stream_generator(streamer):
         try:
             async for text_chunk in streamer:
@@ -173,14 +161,45 @@ async def summarize_history(session_id: int):
         except Exception as e:
             yield f"data: [Error: {json.dumps(e)}]\n\n"
 
+    # Gather the conversation history content from the message history
+    full_content = ""
+    for message in message_history[session_id]:
+        # Append only 'user' and 'assistant' roles to the content, not the original sytem prompt
+        if message['role'] in ['user', 'assistant']:
+            full_content += "\n*role*: *"+ message['role'] + "*, *content*: " + message['content'] + "*"
+
+    # Create the system message with the appropriate context
+    full_sum = [
+        {
+            "role": "system",
+            "content": (
+                "You are an expert business consultant called LegalEase **specializing in Washington State**. "
+                "Your role is to help users determine the most suitable **business structure** based on their **business goals, financial situation, and legal considerations specific to Washington State**. \n\n"
+                "You will summarize the following conversation that has been had between a user and an assistant. Summarize information the User provides, using information the assistant provides to flesh out the business structure. \n"
+                "Only print out a summary, not an explination of how you got it. Display a factual summary, not in a conversational tone. "
+            )
+        },
+        # Use the user's most recent message as the input context
+        {"role": "user", "content": f"Summarize The following: \n\nUser: {full_content}"}, 
+    ]
+
+    print("\n\n\nSENT TO the model!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n")
+    print(full_sum) 
+
+    streamer = AsyncTextIteratorStreamer(tokenizer, skip_prompt=True)
+    print('#######################checkpoint#################')
+
+    # Convert full_sum to the imput format
     model_inputs = tokenizer.apply_chat_template(
-                full_sum, return_tensors="pt", padding=True
-            ).to("cuda")
+        full_sum, return_tensors="pt", padding=True
+    ).to("cuda")
+
     generation_kwargs = dict(
-        inputs = model_inputs, streamer=streamer, max_new_tokens=500, do_sample=True
+        inputs=model_inputs, streamer=streamer, max_new_tokens=500, do_sample=True
     )
 
+    # Start generating the response in a separate thread
     thread = Thread(target=model.generate, kwargs=generation_kwargs)
     thread.start()
-  
+
     return StreamingResponse(stream_generator(streamer), media_type="text/event-stream")
