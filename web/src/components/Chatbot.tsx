@@ -62,12 +62,25 @@ export default function Chatbot() {
     }
   }
 
-  function handlePrintMessages() {
-    const formatted = messages
-        .map(msg => `${msg.role}: ${msg.content}`)
-        .join('\n-------------\n');
-
-    setFormattedMessages(formatted); }
+  async function handlePrintMessages(): Promise<void> {
+    if (sessionIdRef.current === null) {
+      console.log("Session ID is not set.");
+      return;
+    }
+  
+    try {
+      // Call the summarize API endpoint
+      const stream = await api.summarize(sessionIdRef.current);
+  
+      // Use parseSSEStream to process the stream and append the parsed chunks
+      for await (const textChunk of parseSSEStream(stream)) {
+        setFormattedMessages(prev => prev + textChunk);
+      }
+  
+    } catch (err) {
+      console.log("Error while fetching summary:", err);
+    }
+  }
 
   return (
     <div>

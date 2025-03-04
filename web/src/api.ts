@@ -38,9 +38,9 @@ const api = {
     if (!res.ok) {
       return Promise.reject({ status: res.status, data: await res.json() });
     }
-  
-    return res.body;
+    return res.body; 
   }
+
 };
 
 export default api;
