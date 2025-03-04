@@ -156,14 +156,14 @@ async def summarize_history(session_id: int):
     sum_prompt = get_sum_prompt()
 
     message_history_string = "\n".join(
-        [f"{message['role']}: {message['content']}" for message in message_history[session_id]]
+    [f"{message['role']}: {message['content']}" for message in message_history[session_id] if message['role'] in ['user', 'assistant']]
     )
     summary = sum_prompt + message_history_string
     print(summary)
 
     full_sum = []
     full_sum.append({"role": "system", "content": summary})
-
+    
     streamer = AsyncTextIteratorStreamer(tokenizer, skip_prompt=True)
     print('#######################checkpoint#################')
     async def stream_generator(streamer):
