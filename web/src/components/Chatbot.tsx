@@ -69,10 +69,11 @@ export default function Chatbot() {
     }
   
     try {
-      // Call the summarize API endpoint
+      // Reset the formattedMessages state to clear old summary
+      setFormattedMessages('');
+  
       const stream = await api.summarize(sessionIdRef.current);
   
-      // Use parseSSEStream to process the stream and append the parsed chunks
       for await (const textChunk of parseSSEStream(stream)) {
         setFormattedMessages(prev => prev + textChunk);
       }
@@ -104,10 +105,10 @@ export default function Chatbot() {
       
       {/* Display formatted messages beneath the input */}
       {formattedMessages && (
-        <div className="mt-4 p-4 border rounded-lg bg-gray-100">
-          <pre>{formattedMessages}</pre>
-        </div>
-      )}
+      <div className="mt-4 p-4 border rounded-lg bg-gray-100 overflow-auto max-h-96">
+        <pre className="whitespace-pre-wrap break-words">{formattedMessages}</pre>
+      </div>
+    )}
     </div>
   );
 }
