@@ -1,7 +1,7 @@
 import useAutoScroll from '@/hooks/useAutoScroll';
 import Spinner from '@/components/Spinner';
-import userIcon from '@/assets/user.svg';
-import assistantIcon from '@/assets/robot.svg';
+import userIcon from '@/assets/robot.svg';
+import assistantIcon from '@/assets/beagle.svg';
 import { ChatMessagesProps } from '@/types/chat';
 import { RefObject } from 'react';
 
