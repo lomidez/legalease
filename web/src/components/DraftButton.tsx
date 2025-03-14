@@ -8,9 +8,9 @@ const ButtonWrapper = styled.div`
     align-items: center;
 `;
 
-const StyledButton = styled.button<{ isLoading: boolean }>`
+const StyledButton = styled.button.attrs<{ isLoading: boolean }>(() => ({isLoading: undefined,}))`
     background-color: ${({ isLoading }) => (isLoading ? '#4B5563' : '#B91C1C')};
-    border: 2px solid #D8C79D;
+    border: 2px solidrgb(218, 38, 14);
     color: white;
     font-weight: 600;
     padding: 0.5rem 1rem;
@@ -20,12 +20,15 @@ const StyledButton = styled.button<{ isLoading: boolean }>`
     outline: none;
     
     &:hover {
-        background-color: ${({ isLoading }) => (isLoading ? '#4B5563' : '#991B1B')};
+      background-color: ${({ isLoading }) => (isLoading ? '#4B5563' : '#991B1B')};
     }
     &:focus {
-        box-shadow: 0 0 0 2px #D8C79D;
+      box-shadow: 0 0 0 2px #D8C79D;
     }
-`;
+  `;
+
+
+
 
 export default function ActionButton({ label, onClick, isLoading }: ButtonProps) {
     function handleClick(e: MouseEvent<HTMLButtonElement>) {

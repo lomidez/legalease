@@ -15,7 +15,9 @@ const ChatContainer = styled.div`
   gap: 1.5rem;
 `;
 
-const MessageWrapper = styled.div<{ isUser: boolean }>`
+const MessageWrapper = styled.div.attrs<{ isUser: boolean }>(() => ({
+  isUser: undefined, // Prevents `isUser` from appearing in the DOM
+}))`
   display: flex;
   align-items: start;
   gap: 1.5rem;
@@ -29,7 +31,9 @@ const Avatar = styled.img`
   margin-top: 0.25rem;
 `;
 
-const MessageBubble = styled.div<{ isUser: boolean }>`
+const MessageBubble = styled.div.attrs<{ isUser: boolean }>(() => ({
+  isUser: undefined,
+}))`
   width: 70%;
   text-align: left;
   flex: 1;
@@ -38,7 +42,7 @@ const MessageBubble = styled.div<{ isUser: boolean }>`
   background-color: ${({ isUser }) => (isUser ? '#ebf8ff' : '#f3f4f6')};
   color: ${({ isUser }) => (isUser ? '#1e3a8a' : '#374151')};
   white-space: pre-wrap;
-  background-color: white
+  background-color: white;
 `;
 
 export default function ChatMessages({ messages, isLoading }: ChatMessagesProps) {

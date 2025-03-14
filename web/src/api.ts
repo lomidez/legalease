@@ -13,10 +13,7 @@ const api = {
     return data;
   },
 
-  async sendChatMessage(
-    session_id: number | null,
-    message: string,
-  ): Promise<Response["body"]> {
+  async sendChatMessage(session_id: number | null, message: string, ): Promise<Response["body"]> {
     const res = await fetch(BASE_URL + `/chat/` + session_id, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

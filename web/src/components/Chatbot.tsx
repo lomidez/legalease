@@ -11,33 +11,6 @@ import api from '@/api';
 import { parseSSEStream } from '@/utils';
 import styled from 'styled-components';
 
-const ChatContainer = styled.div`
-  background-color: rgb(62, 31, 27);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 5rem; 
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  width: 100%;
-  max-width: 800px;
-  margin-top: 1rem; /* Adjusted to ensure proper spacing below header */
-`;
-
-const SectionsWrapper = styled.div`
-  display: flex;
-  gap: 1rem;
-  width: 100%;
-`;
-
 export default function Chatbot() {
   const sessionIdRef = useRef<number | null>(null);
   const [messages, setMessages] = useImmer<Message[]>([
@@ -125,10 +98,56 @@ export default function Chatbot() {
         <ChatHistory messages={messages} isLoading={isLoading} setNewMessage={setNewMessage} submitNewMessage={submitNewMessage} />
         <ChatControls newMessage={newMessage} isLoading={isLoading} setNewMessage={setNewMessage} submitNewMessage={submitNewMessage} />
         <SectionsWrapper>
-          <SummarySection handleSummarize={handleSummarize} formattedSummary={formattedSummary} isLoading={isLoading} />
-          <NextStepsSection handleNext={handleNext} formattedNext={formattedNext} isLoading={isLoading} />
+          <Section>
+            <SummarySection handleSummarize={handleSummarize} formattedSummary={formattedSummary} isLoading={isLoading} />
+          </Section>
+          <Section>
+            <NextStepsSection handleNext={handleNext} formattedNext={formattedNext} isLoading={isLoading} />
+          </Section>
         </SectionsWrapper>
       </ContentWrapper>
     </ChatContainer>
   );
 }
+
+const ChatContainer = styled.div`
+  background-color: rgb(62, 31, 27);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 1600px;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+`;
+
+const SectionsWrapper = styled.div`
+  display: flex;
+  flex-direction: row; /* Ensures they are side by side */
+  justify-content: space-between; /* Creates space between sections */
+  padding-top: 1rem;
+  width: 100%;
+  max-width: 800px;
+  gap: 1rem; /* Adds spacing between the two sections */
+`;
+
+const Section = styled.div`
+  flex: 1; /* Makes both sections take equal space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #D8C79D;
+  padding: 1rem;
+  background-color: #FFF;
+  border-radius: 8px;
+  max-width: 800px;
+`;
+

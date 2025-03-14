@@ -23,7 +23,7 @@ export interface ChatInputProps {
 }
 
 export interface ButtonProps {
-    label: string;
-    onClick: () => void; 
-    isLoading: boolean; 
+  label: string;
+  onClick: () => Promise<void>;  // Allow async functions
+  isLoading: boolean;
 }

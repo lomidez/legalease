@@ -9,7 +9,7 @@ interface Props {
 }
 
 const SectionContainer = styled.div`
-  width: 50%;
+  width: 100%;
   padding: 0;
 `;
 
@@ -26,9 +26,10 @@ const ContentBox = styled.div`
   overflow: auto;
   max-height: 24rem;
   font-size: 0.75rem;
-  width: 100%;
+  width: 95%;
   white-space: pre-wrap;
   word-break: break-word;
+  overflow-wrap: break-word;
   border-top-left-radius: 0.5rem;
 `;
 

@@ -2,16 +2,15 @@ import DraftButton from '@/components/DraftButton';
 import styled from 'styled-components';
 
 interface Props {
-  handleNext: () => Promise<void>;
-  formattedNext?: string;
+  handleSummarize: () => Promise<void>;
+  formattedSummary?: string;
   isLoading: boolean;
-  className?: string; 
+  className?: string;
 }
 
 const SectionContainer = styled.div`
-  width: 50%;
+  width: 100%;
   padding: 0;
-  max-width: 600px; /* Ensures it does not stretch beyond a fixed size */
 `;
 
 const ButtonWrapper = styled.div`
@@ -27,27 +26,26 @@ const ContentBox = styled.div`
   overflow: auto;
   max-height: 24rem;
   font-size: 0.75rem;
-  width: 100%;
-  max-width: 100%; /* Ensures it does not exceed the parent container */
+  width: 95%;
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: break-word;
-  word-wrap: break-word;
+  border-top-left-radius: 0.5rem;
 `;
 
-export default function NextStepsSection({ handleNext, formattedNext, isLoading, className }: Props) {
+export default function NextStepsSection({ handleSummarize, formattedSummary, isLoading, className}: Props) {
   return (
     <SectionContainer className={className}>
       <ButtonWrapper>
         <DraftButton 
           label="2: Generate Business Summary" 
-          onClick={handleNext}  
+          onClick={handleSummarize}  
           isLoading={isLoading} 
         />
       </ButtonWrapper>
-      {formattedNext && formattedNext.trim() && (
+      {formattedSummary && formattedSummary.trim() && (
         <ContentBox>
-          <pre>{formattedNext}</pre>
+          <pre>{formattedSummary}</pre>
         </ContentBox>
       )}
     </SectionContainer>
