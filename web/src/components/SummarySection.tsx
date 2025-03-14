@@ -23,7 +23,7 @@ const ContentBox = styled.div`
   padding: 1rem;
   border: 1px solid black;
   background-color: #D8C79D;
-  overflow: auto;
+  overflow-y: auto;
   max-height: 24rem;
   font-size: 0.75rem;
   width: 95%;

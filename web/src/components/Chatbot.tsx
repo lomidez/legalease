@@ -134,20 +134,30 @@ const SectionsWrapper = styled.div`
   justify-content: space-between; /* Creates space between sections */
   padding-top: 1rem;
   width: 100%;
-  max-width: 800px;
+
   gap: 1rem; /* Adds spacing between the two sections */
 `;
 
 const Section = styled.div`
-  flex: 1; /* Makes both sections take equal space */
+  flex: 1; /* Ensures equal width for both sections */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  
   border: 1px solid #D8C79D;
   padding: 1rem;
-  background-color: #FFF;
+  background-color: #D8C79D;
   border-radius: 8px;
-  max-width: 800px;
+
+  /* Parameters to make sure it doesn't expand uncontrollably */
+  max-width: 50%; /* Ensures both sections take half the space */
+  overflow: hidden; /* Prevents content from forcing expansion */
+  min-height: 200px; 
+
+  /* If content overflows, enable scrolling */
+  overflow-y: auto; 
+  word-wrap: break-word;
+  white-space: pre-wrap;
 `;
 
