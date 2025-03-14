@@ -1,8 +1,33 @@
 import { MouseEvent } from 'react';
 import { ButtonProps } from '@/types/chat';
+import styled from 'styled-components';
+
+const ButtonWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const StyledButton = styled.button<{ isLoading: boolean }>`
+    background-color: ${({ isLoading }) => (isLoading ? '#4B5563' : '#B91C1C')};
+    border: 2px solid #D8C79D;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: ${({ isLoading }) => (isLoading ? 'not-allowed' : 'pointer')};
+    transition: background-color 0.2s;
+    outline: none;
+    
+    &:hover {
+        background-color: ${({ isLoading }) => (isLoading ? '#4B5563' : '#991B1B')};
+    }
+    &:focus {
+        box-shadow: 0 0 0 2px #D8C79D;
+    }
+`;
 
 export default function ActionButton({ label, onClick, isLoading }: ButtonProps) {
-    // Handle button click event
     function handleClick(e: MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
         if (!isLoading) {
@@ -11,15 +36,10 @@ export default function ActionButton({ label, onClick, isLoading }: ButtonProps)
     }
 
     return (
-        <div className="flex justify-center items-center">
-            <button
-                onClick={handleClick}
-                disabled={isLoading} 
-                className={`${isLoading ? 'bg-gray-400' : 'bg-blue-500'
-                    } text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none`}
-            >
+        <ButtonWrapper>
+            <StyledButton onClick={handleClick} isLoading={isLoading} disabled={isLoading}>
                 {label}
-            </button>
-        </div>
+            </StyledButton>
+        </ButtonWrapper>
     );
 }

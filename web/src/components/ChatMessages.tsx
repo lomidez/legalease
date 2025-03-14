@@ -4,35 +4,57 @@ import userIcon from '@/assets/robot.svg';
 import assistantIcon from '@/assets/beagle.svg';
 import { ChatMessagesProps } from '@/types/chat';
 import { RefObject } from 'react';
+import styled from 'styled-components';
+
+const ChatContainer = styled.div`
+  width: 100%;
+  padding: 1rem;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+const MessageWrapper = styled.div<{ isUser: boolean }>`
+  display: flex;
+  align-items: start;
+  gap: 1.5rem;
+  flex-direction: ${({ isUser }) => (isUser ? 'row-reverse' : 'row')};
+`;
+
+const Avatar = styled.img`
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+`;
+
+const MessageBubble = styled.div<{ isUser: boolean }>`
+  width: 70%;
+  text-align: left;
+  flex: 1;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: ${({ isUser }) => (isUser ? '#ebf8ff' : '#f3f4f6')};
+  color: ${({ isUser }) => (isUser ? '#1e3a8a' : '#374151')};
+  white-space: pre-wrap;
+  background-color: white
+`;
 
 export default function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
   const scrollContentRef: RefObject<HTMLDivElement> = useAutoScroll(isLoading);
 
   return (
-    <div
-      ref={scrollContentRef}
-      className="w-full space-y-6 py-4 px-4 overflow-x-hidden"  // Ensure full width with padding
-    >
+    <ChatContainer ref={scrollContentRef}>
       {messages.map(({ role, content, loading, error }, idx) => (
-        <div
-          key={idx}
-          className={`flex items-start gap-6 ${role === 'user' ? 'flex-row-reverse' : ''}`}
-        >
-          <div className="flex-shrink-0 mt-1">
-            {role === 'user' ? (
-              <img src={userIcon} alt="user icon" className="w-12 h-12" />
-            ) : (
-              <img src={assistantIcon} alt="assistant icon" className="w-12 h-12" />
-            )}
-          </div>
-          <div
-            className={`w-[70%] text-left flex-1 rounded-xl p-4 ${role === 'user' ? 'bg-blue-50 text-blue-900' : 'bg-gray-100 text-gray-800'}`}
-          >
-            {loading && !content ? <Spinner /> : <div className="whitespace-pre-wrap">{content}</div>}
+        <MessageWrapper key={idx} isUser={role === 'user'}>
+          <Avatar src={role === 'user' ? userIcon : assistantIcon} alt={`${role} icon`} />
+          <MessageBubble isUser={role === 'user'}>
+            {loading && !content ? <Spinner /> : <div>{content}</div>}
             {error && <div><span>Beep boop error in chatmessages</span></div>}
-          </div>
-        </div>
+          </MessageBubble>
+        </MessageWrapper>
       ))}
-    </div>
+    </ChatContainer>
   );
 }
