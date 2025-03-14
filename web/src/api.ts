@@ -52,6 +52,19 @@ const api = {
       return Promise.reject({ status: res.status, data: await res.json() });
     }
     return res.body; 
+  },
+  async generate_next_steps(
+    session_id: number | null
+  ): Promise<Response["body"]> {
+    const res = await fetch(`${BASE_URL}/generate_next_steps/${session_id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+  
+    if (!res.ok) {
+      return Promise.reject({ status: res.status, data: await res.json() });
+    }
+    return res.body; 
   }
 
 

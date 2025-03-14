@@ -1,6 +1,12 @@
+html, body {
+  height: 100%; 
+  margin: 0;    
+  background-color: #3E1F1B; 
+}
+
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: #3E1F1B;
 }
