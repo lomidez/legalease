@@ -72,6 +72,7 @@ const SectionTitle = styled.h2`
 
 const ContentArea = styled.div`
   width: 100%;
+  min-width: 800px;
   max-width: 800px;
   display: flex;
   flex-direction: column;
@@ -87,6 +88,7 @@ const ButtonWrapper = styled.div`
 
 const ContentDisplayWrapper = styled.div`
   width: 100%;
+  min-width: 800px;
   max-width: 800px;
 `;
 

@@ -14,15 +14,20 @@ export default function ContentDisplay({
 }: ContentDisplayProps) {
   return (
     <ContentContainer>
-      {isLoading ? (
+      {content && content.trim() ? (
+        <ContentBox>
+          <ContentText>{content}</ContentText>
+          {isLoading && (
+            <LoadingIndicator>
+              <Spinner />
+            </LoadingIndicator>
+          )}
+        </ContentBox>
+      ) : isLoading ? (
         <LoadingContainer>
           <Spinner />
           <LoadingText>Generating response...</LoadingText>
         </LoadingContainer>
-      ) : content && content.trim() ? (
-        <ContentBox>
-          <ContentText>{content}</ContentText>
-        </ContentBox>
       ) : (
         <EmptyState>
           <p>{emptyStateMessage}</p>
@@ -65,6 +70,16 @@ const ContentBox = styled.div`
   background-color: white;
   border-radius: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+`;
+
+const LoadingIndicator = styled.div`
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ContentText = styled.div`

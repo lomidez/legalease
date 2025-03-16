@@ -24,6 +24,8 @@ export default function App() {
   const [formattedSummary, setFormattedSummary] = useState('');
   const [formattedNext, setFormattedNext] = useState('');
   const [showInstructions, setShowInstructions] = useState(false);
+  const [isSummaryLoading, setIsSummaryLoading] = useState(false);
+  const [isNextStepsLoading, setIsNextStepsLoading] = useState(false);
 
   const isLoading: boolean = messages.length > 0 ? messages[messages.length - 1].loading : false;
 
@@ -68,12 +70,19 @@ export default function App() {
     if (!sessionIdRef.current) return console.log("Session ID is not set.");
     try {
       setFormattedSummary('');
+      setIsSummaryLoading(true);
       const stream = await api.summarize(sessionIdRef.current);
+      
+      // Process the stream
       for await (const textChunk of parseSSEStream(stream)) {
         setFormattedSummary(prev => prev + textChunk);
       }
+      
+      // Only set loading to false after the stream is complete
+      setIsSummaryLoading(false);
     } catch (err) {
       console.log("Error while fetching summary:", err);
+      setIsSummaryLoading(false);
     }
   }
 
@@ -81,12 +90,19 @@ export default function App() {
     if (!sessionIdRef.current) return console.log("Session ID is not set.");
     try {
       setFormattedNext('');
+      setIsNextStepsLoading(true);
       const stream = await api.generate_next_steps(sessionIdRef.current);
+      
+      // Process the stream
       for await (const textChunk of parseSSEStream(stream)) {
         setFormattedNext(prev => prev + textChunk);
       }
+      
+      // Only set loading to false after the stream is complete
+      setIsNextStepsLoading(false);
     } catch (err) {
       console.log("Error while fetching next steps:", err);
+      setIsNextStepsLoading(false);
     }
   }
 
@@ -109,7 +125,7 @@ export default function App() {
             <SummaryPage 
               handleSummarize={handleSummarize} 
               formattedSummary={formattedSummary} 
-              isLoading={isLoading}
+              isLoading={isSummaryLoading}
               className="page-container"
             />
           } />
@@ -117,7 +133,7 @@ export default function App() {
             <NextStepsPage 
               handleNext={handleNext} 
               formattedNext={formattedNext} 
-              isLoading={isLoading}
+              isLoading={isNextStepsLoading}
               className="page-container"
             />
           } />
