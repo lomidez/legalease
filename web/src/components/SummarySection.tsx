@@ -2,7 +2,7 @@ import DraftButton from '@/components/DraftButton';
 import ContentDisplay from '@/components/ContentDisplay';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Props {
   handleSummarize: () => Promise<void>;
@@ -13,6 +13,10 @@ interface Props {
 
 export default function SummarySection({ handleSummarize, formattedSummary = '', isLoading, className}: Props) {
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
   const handleGenerateSummary = async () => {
     if (!isLoading) {

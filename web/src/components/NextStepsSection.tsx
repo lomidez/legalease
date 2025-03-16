@@ -2,6 +2,7 @@ import DraftButton from '@/components/DraftButton';
 import ContentDisplay from '@/components/ContentDisplay';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 interface Props {
   handleNext: () => Promise<void>;
@@ -12,6 +13,10 @@ interface Props {
 
 export default function NextStepsSection({ handleNext, formattedNext, isLoading, className }: Props) {
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
   const handleGenerateNext = async () => {
     if (!isLoading) {
