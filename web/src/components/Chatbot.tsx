@@ -95,15 +95,13 @@ export default function Chatbot() {
       <ChatHeader toggleInstructions={() => setShowInstructions(!showInstructions)} showInstructions={showInstructions} />
       {showInstructions && <ChatInstructions closeInstructions={() => setShowInstructions(false)} />}
       <ContentWrapper>
-        <ChatHistory messages={messages} isLoading={isLoading} setNewMessage={setNewMessage} submitNewMessage={submitNewMessage} />
-        <ChatControls newMessage={newMessage} isLoading={isLoading} setNewMessage={setNewMessage} submitNewMessage={submitNewMessage} />
+        <MainChatSection>
+          <ChatHistory messages={messages} isLoading={isLoading} setNewMessage={setNewMessage} submitNewMessage={submitNewMessage} />
+          <ChatControls newMessage={newMessage} isLoading={isLoading} setNewMessage={setNewMessage} submitNewMessage={submitNewMessage} />
+        </MainChatSection>
         <SectionsWrapper>
-          <Section>
-            <SummarySection handleSummarize={handleSummarize} formattedSummary={formattedSummary} isLoading={isLoading} />
-          </Section>
-          <Section>
-            <NextStepsSection handleNext={handleNext} formattedNext={formattedNext} isLoading={isLoading} />
-          </Section>
+          <SummarySection handleSummarize={handleSummarize} formattedSummary={formattedSummary} isLoading={isLoading} />
+          <NextStepsSection handleNext={handleNext} formattedNext={formattedNext} isLoading={isLoading} />
         </SectionsWrapper>
       </ContentWrapper>
     </ChatContainer>
@@ -117,47 +115,39 @@ const ChatContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   max-width: 1600px;
+  min-height: 200vh; /* Make the container taller to enable scrolling */
 `;
 
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   margin-top: 1rem;
+  gap: 2rem; /* Add space between main chat and sections */
+`;
+
+const MainChatSection = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 1rem;
 `;
 
 const SectionsWrapper = styled.div`
   display: flex;
-  flex-direction: row; /* Ensures they are side by side */
-  justify-content: space-between; /* Creates space between sections */
-  padding-top: 1rem;
+  flex-direction: column; /* Stack sections vertically */
   width: 100%;
+  max-width: 1200px;
+  padding: 2rem 1rem;
+  gap: 2rem; /* Add space between sections */
 
-  gap: 1rem; /* Adds spacing between the two sections */
-`;
-
-const Section = styled.div`
-  flex: 1; /* Ensures equal width for both sections */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  
-  border: 1px solid #D8C79D;
-  padding: 1rem;
-  background-color: #D8C79D;
-  border-radius: 8px;
-
-  /* Parameters to make sure it doesn't expand uncontrollably */
-  max-width: 50%; /* Ensures both sections take half the space */
-  overflow: hidden; /* Prevents content from forcing expansion */
-  min-height: 200px; 
-
-  /* If content overflows, enable scrolling */
-  overflow-y: auto; 
-  word-wrap: break-word;
-  white-space: pre-wrap;
+  > * {
+    width: 100%; /* Make sections take full width */
+    min-height: 300px;
+    background-color: #D8C79D;
+    border-radius: 8px;
+    padding: 2rem;
+  }
 `;
 
