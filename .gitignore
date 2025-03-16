@@ -37,3 +37,7 @@ venv
 
 # vite
 vite.log
+
+# misc from startup
+api.log
+api.pid

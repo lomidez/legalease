@@ -1,16 +1,39 @@
-# This code generated dataset for Legal Students to evaluate conversations
-# and saves csv to /media/volume/LegalEaseMaxim/CPSC5830-Team1/LegalEaseMk1/datasets
-
 import csv
 import torch
 import pandas as pd
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+from peft import PeftModel
 from rag import query_rag  # Ensure this function is correctly implemented
 
 def init_model():
-    model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", device_map="auto")
-    tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
-    tokenizer.pad_token = tokenizer.eos_token  # Set pad token
+    """Initialize the fine-tuned LegalEaseV2 model with optional quantization."""
+    model_name = "XCIT3D247/LegalEaseV2"  # Use the fine-tuned model
+    
+    # Enable quantization for efficient inference
+    bnb_config = BitsAndBytesConfig(
+        load_in_4bit=True,  
+        bnb_4bit_use_double_quant=True,  
+        bnb_4bit_quant_type="nf4",  
+        bnb_4bit_compute_dtype=torch.bfloat16  
+    )
+
+    # Load the model with quantization
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        quantization_config=bnb_config,
+        device_map="auto"
+    )
+
+    # Load fine-tuned weights (LoRA adapters)
+    model = PeftModel.from_pretrained(model, model_name)
+
+    # Load tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    
+    # Set tokenizer padding and EOS token
+    tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "left"  # Ensures better performance in batch decoding
+
     return model, tokenizer
 
 def get_prompt():
@@ -46,9 +69,7 @@ def generate_responses(model, tokenizer, questions):
 def save_to_csv(df, filename="LegalEase_Responses.csv"):
     df.to_csv(filename, index=False, encoding="utf-8")
 
-
 if __name__ == "__main__":
-    # 50 test cases
     test_questions = [
         # "I am starting a consulting business and want to avoid self-employment tax  as much as possible. What structure should I use?",
         # "I want to start a business that promotes environmental conservation. What  are the key steps?",
@@ -105,11 +126,13 @@ if __name__ == "__main__":
         "I want to form a cooperative bakery where all employees have ownership stakes."
     ]
     
+
+    
     print("Initializing Model...")
     model, tokenizer = init_model()
     print("Generating responses...")
     responses = generate_responses(model, tokenizer, test_questions)
     print("Saving responses to CSV...")
-    output_file = "/media/volume/LegalEaseMaxim/CPSC5830-Team1/LegalEaseMk1/datasets/eval_LegalEase_Responses2.csv"
+    output_file = "/media/volume/LegalEaseMaxim/CPSC5830-Team1/LegalEaseMk1/datasets/eval_LegalEase_Responses2_finetuned.csv"
     responses.to_csv(output_file, index=False, encoding="utf-8")
     print("Done!")

@@ -2,10 +2,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I am starting a tutoring business and want to limit my personal liability. What business structure should I choose?"
             },
@@ -17,10 +13,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to start a non-profit to provide free educational materials. How should I structure my organization?"
@@ -34,10 +26,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I plan to open a marketing consulting firm with a few business partners and want to avoid double taxation. What is the best structure?"
             },
@@ -49,10 +37,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to form a charity to raise funds for children's education. What structure should I choose?"
@@ -66,10 +50,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I am an independent software developer. Should I form an LLC or an S-Corp?"
             },
@@ -81,10 +61,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I plan to open a nonprofit that provides free medical services to low-income families. What steps do I need to take?"
@@ -98,10 +74,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to open a bakery but want to protect my personal assets in case of lawsuits. What structure should I choose?"
             },
@@ -113,10 +85,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I am starting a business and want to avoid paying both corporate and personal income tax. What should I do?"
@@ -130,10 +98,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "What are the advantages of forming an LLC over an S-Corp?"
             },
@@ -145,10 +109,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to create a business that allows me to seek donations and grants. What structure should I choose?"
@@ -162,10 +122,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to start a business with limited liability and the ability to choose how it is taxed. What should I do?"
             },
@@ -177,10 +133,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I plan to run a nonprofit organization that provides meals to the homeless. What legal steps should I take?"
@@ -194,10 +146,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "Can an LLC be taxed as an S-Corporation?"
             },
@@ -209,10 +157,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to start a business with multiple owners and avoid corporate double taxation. What structure should I choose?"
@@ -226,10 +170,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "What are the key differences between an LLC and an S-Corporation?"
             },
@@ -241,10 +181,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to register a nonprofit that provides free legal services. What structure should I use?"
@@ -258,10 +194,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I\u2019m a freelancer and want liability protection. Should I form an LLC or an S-Corp?"
             },
@@ -273,10 +205,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "What are the benefits of forming an LLC over a sole proprietorship?"
@@ -290,10 +218,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to form a nonprofit that qualifies for tax-exempt donations. What should I do?"
             },
@@ -305,10 +229,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I have a small business and want to ensure I don\u2019t pay corporate taxes. What structure should I choose?"
@@ -322,10 +242,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I plan to start a small family business and want to protect my personal assets. What structure should I choose?"
             },
@@ -337,10 +253,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to start a nonprofit organization focused on community outreach. What legal requirements should I follow?"
@@ -354,10 +266,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "Can an LLC help me save on taxes compared to a sole proprietorship?"
             },
@@ -369,10 +277,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to start a business but plan to raise investment funds later. Should I choose an LLC or an S-Corp?"
@@ -386,10 +290,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "What are the compliance requirements for an LLC?"
             },
@@ -401,10 +301,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I plan to start a nonprofit that offers housing assistance. Can I pay myself a salary?"
@@ -418,10 +314,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to open a gym and need liability protection from potential lawsuits. What structure should I use?"
             },
@@ -433,10 +325,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "How does an S-Corp help me save on self-employment taxes?"
@@ -450,10 +338,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I plan to start a nonprofit for animal rescue. What tax benefits are available?"
             },
@@ -465,10 +349,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to start a consulting business but want to avoid strict corporate formalities. What should I choose?"
@@ -482,10 +362,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to start a nonprofit that provides job training to low-income individuals. How should I structure it?"
             },
@@ -497,10 +373,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I plan to start an online retail business and want to protect my personal assets. What structure should I choose?"
@@ -514,10 +386,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "Can an S-Corporation have more than 100 shareholders?"
             },
@@ -529,10 +397,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I am starting a consulting business and want to avoid self-employment tax as much as possible. What structure should I use?"
@@ -546,10 +410,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "What are the main tax benefits of an LLC compared to a sole proprietorship?"
             },
@@ -561,10 +421,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to start a nonprofit that promotes environmental conservation. What are the key steps?"
@@ -578,10 +434,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I own a rental property business. Would an LLC help me?"
             },
@@ -593,10 +445,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "What are the annual reporting requirements for an S-Corporation?"
@@ -610,10 +458,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I plan to create a nonprofit that helps veterans transition to civilian careers. What should I do?"
             },
@@ -625,10 +469,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "What happens if I don't file an annual report for my LLC?"
@@ -642,10 +482,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to start a nonprofit for providing free coding bootcamps to underprivileged students. What steps should I take?"
             },
@@ -657,10 +493,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I plan to start a coffee shop with my spouse and want to protect our personal assets. What business structure should we choose?"
@@ -674,10 +506,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I\u2019m starting a digital marketing agency and want to pay myself a salary while reducing self-employment taxes. What structure should I choose?"
             },
@@ -689,10 +517,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "Can a nonprofit organization pay its employees?"
@@ -706,10 +530,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to open a tech startup and attract investors. Should I form an LLC or an S-Corp?"
             },
@@ -721,10 +541,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "What are the legal requirements for forming an S-Corp?"
@@ -738,10 +554,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I am launching a small home-based bakery and want liability protection without excessive paperwork. What should I do?"
             },
@@ -753,10 +565,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "Can a nonprofit organization make a profit?"
@@ -770,10 +578,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to start an event planning company with a business partner and want liability protection. Should we choose an LLC or an S-Corp?"
             },
@@ -785,10 +589,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "What happens if an S-Corp fails to follow corporate formalities?"
@@ -802,10 +602,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I plan to start a nonprofit that provides free mental health services to veterans. What business structure should I choose?"
             },
@@ -817,10 +613,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to start a graphic design business and limit my liability. What structure should I pick?"
@@ -834,10 +626,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "Can an LLC be converted into an S-Corporation later?"
             },
@@ -849,10 +637,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I am opening a fitness coaching business and want to avoid personal liability for business debts. Should I form an LLC or an S-Corp?"
@@ -866,10 +650,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to start a nonprofit that provides scholarships for underprivileged students. What are my next steps?"
             },
@@ -881,10 +661,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "What are the disadvantages of an S-Corporation compared to an LLC?"
@@ -898,10 +674,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to start an e-commerce business and need flexibility in taxation. Should I choose an LLC or an S-Corp?"
             },
@@ -913,10 +685,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "How do I maintain compliance as a Non-Profit Corporation?"
@@ -930,10 +698,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to open a photography business with liability protection. What structure is best?"
             },
@@ -945,10 +709,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "What happens if an LLC does not file its annual reports?"
@@ -962,10 +722,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I plan to start a business selling handmade jewelry online. I want liability protection but minimal paperwork. What structure should I choose?"
             },
@@ -977,10 +733,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to start a nonprofit to provide disaster relief. What are the legal steps?"
@@ -994,10 +746,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "What are the benefits of forming an LLC instead of operating as a sole proprietorship?"
             },
@@ -1009,10 +757,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I plan to start a software development company and want to reduce self-employment taxes. Should I choose an LLC or S-Corp?"
@@ -1026,10 +770,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to start a nonprofit that provides free legal assistance to immigrants. How should I register my organization?"
             },
@@ -1041,10 +781,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to open a restaurant with a few business partners and avoid corporate double taxation. What structure should we choose?"
@@ -1058,10 +794,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I am a freelance consultant and want liability protection. Should I choose an LLC or an S-Corp?"
             },
@@ -1073,10 +805,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "What are the compliance requirements for an S-Corporation?"
@@ -1090,10 +818,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to start a business that allows me to seek grants and donations. What structure should I choose?"
             },
@@ -1105,10 +829,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I own multiple rental properties. Should I form an LLC?"
@@ -1122,10 +842,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I plan to run an online education platform and want liability protection while reducing taxes. Should I choose an LLC or S-Corp?"
             },
@@ -1137,10 +853,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "What are the ownership restrictions for an S-Corporation?"
@@ -1154,10 +866,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to start a nonprofit animal rescue center. How do I maintain tax-exempt status?"
             },
@@ -1169,10 +877,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I am opening a coffee shop and want liability protection while avoiding too much paperwork. What structure is best?"
@@ -1186,10 +890,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I plan to start a nonprofit that helps small businesses. Can I take a salary as the founder?"
             },
@@ -1201,10 +901,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to form an LLC but also benefit from S-Corp taxation. Is this possible?"
@@ -1218,10 +914,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I am starting a tech company and need flexibility in ownership structure. Should I choose an LLC or an S-Corp?"
             },
@@ -1233,10 +925,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "What happens if an S-Corporation does not follow corporate formalities?"
@@ -1250,10 +938,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to start a nonprofit to promote STEM education. What legal documents do I need?"
             },
@@ -1265,10 +949,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I am starting a social enterprise that reinvests profits into community projects. Should I register as a nonprofit?"
@@ -1282,10 +962,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to open a family-owned grocery store with limited liability. What structure should I choose?"
             },
@@ -1297,10 +973,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "Can an S-Corporation have different types of stock?"
@@ -1314,10 +986,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I plan to start a nonprofit for public health education. Can I apply for tax-exempt status?"
             },
@@ -1329,10 +997,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "What are the key differences between a Non-Profit Corporation and an LLC?"
@@ -1346,10 +1010,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I am opening a bakery and want liability protection. Should I choose an LLC or an S-Corp?"
             },
@@ -1361,10 +1021,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "Can a nonprofit apply for government grants?"
@@ -1378,10 +1034,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I want to start a consulting firm with tax advantages. Should I register as an LLC or S-Corp?"
             },
@@ -1393,10 +1045,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "What are the annual tax filing requirements for an S-Corporation?"
@@ -1410,10 +1058,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I plan to start a nonprofit that helps single mothers. Can I charge for services?"
             },
@@ -1425,10 +1069,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I am starting an event planning company and want liability protection. Should I form an LLC or S-Corp?"
@@ -1442,10 +1082,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "What are the main disadvantages of an LLC?"
             },
@@ -1457,10 +1093,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to start a nonprofit focused on affordable housing. What legal requirements must I follow?"
@@ -1474,10 +1106,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "How does pass-through taxation benefit LLC owners?"
             },
@@ -1489,10 +1117,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "Can an S-Corporation deduct business expenses?"
@@ -1506,10 +1130,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I am forming a nonprofit arts foundation. Do I need a board of directors?"
             },
@@ -1521,10 +1141,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I am an independent contractor. Should I form an LLC?"
@@ -1538,10 +1154,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "What are the liability risks of running a nonprofit?"
             },
@@ -1553,10 +1165,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "I want to open a co-working space with a few business partners. What structure should we use?"
@@ -1570,10 +1178,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "What is the difference between an S-Corp and a C-Corp?"
             },
@@ -1585,10 +1189,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "Can a nonprofit receive donations from businesses?"
@@ -1602,10 +1202,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "I am opening a fitness coaching business. Should I register as an LLC or S-Corp?"
             },
@@ -1618,10 +1214,6 @@
     {
         "messages": [
             {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
-            {
                 "role": "user",
                 "content": "What tax forms does an LLC need to file?"
             },
@@ -1633,10 +1225,6 @@
     },
     {
         "messages": [
-            {
-                "role": "system",
-                "content": "You are an expert business consultant helping users choose the best business structure: LLC, Non-Profit, or S-Corp. Ask clarifying questions if needed, analyze their needs, and recommend the best option with clear reasoning. Avoid suggesting General Partnerships, Sole Proprietorships, or C-Corps."
-            },
             {
                 "role": "user",
                 "content": "How can an S-Corporation reduce self-employment taxes?"

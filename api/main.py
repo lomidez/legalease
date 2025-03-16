@@ -125,11 +125,17 @@ async def generate_streaming_response(session_id: int, chatRequest: ChatRequest)
         f"Relevant information: {rag_context}\n\nUser: {chatRequest.message}"
     )
     append_message(session_id, "user", formatted_input)
-    """print("\n\n\nSENT TO the model!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n")
-    print(message_history[session_id])"""
+    print("\n\n\nChatS TO the model!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n")
+    print(message_history[session_id])
+    filtered_msgs = []
+    
+    for message in message_history[session_id]:
+        if message['role'] in ['system','user', 'assistant']:
+                filtered_msgs.append(message)
+    print(filtered_msgs)
     # Convert messages to model input
     model_inputs = tokenizer.apply_chat_template(
-        message_history[session_id], return_tensors="pt", padding=True
+        filtered_msgs, return_tensors="pt", padding=True
     ).to("cuda")
 
     # Start generating response
@@ -198,7 +204,7 @@ async def summarize_history(session_id: int):
         {"role": "user", "content": f"Summarize The following: \n\nUser: {full_content}"}, 
     ]
 
-    print("\n\n\nSENT TO the model!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n")
+    print("\n\n\SUM TO the model!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n")
     print(full_sum) 
 
     # Initialize the streamer
@@ -234,7 +240,8 @@ async def draft_articles(session_id: int):
     for message in message_history[session_id]:
         # Append only 'user' and 'assistant' roles to the content, not the original sytem prompt
         if message['role'] in ['summary']:
-            full_content += "\n*role*: *"+ message['role'] + "*, *content*: " + message['content'] + "*"
+            # Send as a user so the model filter accepts the query
+            full_content += "\n*role*: *" + message['role'] + "*, *content*: " + message['content'] + "*"
 
     
     # In memory store for aoi drafts
@@ -259,7 +266,63 @@ async def draft_articles(session_id: int):
     print(full_pair) 
 
     streamer = AsyncTextIteratorStreamer(tokenizer, skip_prompt=True)
-    print('#######################checkpoint#################')
+    print('#######################draft checkpoint#################')
+
+    # Convert full_sum to the imput format
+    model_inputs = tokenizer.apply_chat_template(
+        full_pair, return_tensors="pt", padding=True
+    ).to("cuda")
+
+    generation_kwargs = dict(
+        inputs=model_inputs, streamer=streamer, max_new_tokens=500, do_sample=True
+    )
+
+    # Start generating the response in a separate thread
+    thread = Thread(target=model.generate, kwargs=generation_kwargs)
+    thread.start()
+
+    return StreamingResponse(stream_generator(streamer), media_type="text/event-stream")
+
+@app.get("/generate_next_steps/{session_id}")
+async def generate_next_steps(session_id: int):
+    async def stream_generator(streamer):
+        try:
+            async for text_chunk in streamer:
+                yield f"data: {json.dumps(text_chunk)}\n\n"
+        except Exception as e:
+            yield f"data: [Error: {json.dumps(e)}]\n\n"
+
+    # Gather the conversation history content from the message history
+    full_content = ""
+    for message in message_history[session_id]:
+        # Append only 'user' and 'assistant' roles to the content, not the original sytem prompt, and only the last
+        if message['role'] in ['summary']:
+            # Send as a user so the model filter accepts the query
+            full_content += "\n*role*: *" + message['role'] + "*, *content*: " + message['content'] + "*"
+
+    
+    # In memory store for aoi drafts
+    aoi = read_text_file("art_of_inc/llc_aoi.txt")
+    directions = read_text_file("art_of_inc/directions.txt")
+    # Create the system message with the appropriate context
+    full_pair = [
+        {
+            "role": "system",
+            "content": (
+                "You are an expert business consultant called LegalEase **specializing in Washington State**. "
+                "Your role is to help users determine the most suitable **business structure** based on their **business goals, financial situation, and legal considerations specific to Washington State**. \n\n"
+                "You will be provided a summary of a business discussion and a template for an Articles of Incorporation Document."
+                "Generate a list of next steps for the user to take. Mention things like reserving their business name, filing an EIN" + directions
+            )
+        },
+        {"role": "user", "content": f"Use this Summary: {full_content} and this Articles of Incorporation template {aoi} to draft Articles of Incorporation for this business idea."}, 
+    ]
+
+    print("\n\n\nSENT TO the model!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n")
+    print(full_pair) 
+
+    streamer = AsyncTextIteratorStreamer(tokenizer, skip_prompt=True)
+    print('#######################draft checkpoint#################')
 
     # Convert full_sum to the imput format
     model_inputs = tokenizer.apply_chat_template(

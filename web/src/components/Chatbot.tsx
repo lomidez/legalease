@@ -46,7 +46,7 @@ export default function Chatbot() {
 
     try {
       if (!sessionIdRef.current) throw new Error("Session ID is null, something went wrong!");
-      const stream = await api.sendChatMessage(sessionIdRef.current, trimmedMessage, messages);
+      const stream = await api.sendChatMessage(sessionIdRef.current, trimmedMessage);
       for await (const textChunk of parseSSEStream(stream)) {
         setMessages(draft => {
           draft[draft.length - 1].content += textChunk;

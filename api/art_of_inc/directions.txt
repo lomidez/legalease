@@ -1,0 +1,80 @@
+LEGAL FORMATION DOCUMENTS FOR INCORPORATING BUSINESS ENTITIES: 
+
+LLCs: 
+
+To form a Limited Liability Company (LLC) in Washington State, you must file the Certificate of Formation with the Washington Secretary of State, which officially creates your LLC and includes key details such as the LLC’s name, registered agent, principal office address, and dissolution date (if applicable).  [MANDATORY FIRST STEP!] 
+
+https://www.sos.wa.gov/limited-liability-company-llc-professional-llc-pllc-filing-resource-page 
+
+https://www.sos.wa.gov/sites/default/files/2023-10/LLC_COF.pdf 
+
+https://www.sos.wa.gov/sites/default/files/2023-10/LLC_AMD.pdf 
+
+We are not focusing on PLLCs, though here are the documents needed for PLLCs (Professional Limited Liability Companies.  These are a specialized type of LLC designed for licensed professionals like doctors, lawyers, accountants, architects, and engineers, essentially any business where individuals need a professional license to operate within their field; it allows them to form a company while adhering to specific regulations related to their profession.) 
+
+The Certificate of Formation and the Articles of Incorporation are both legal documents that are used to establish a business entity, but they are not the same.  Other corporations must have Articles of Incorporation, while LLCs are exempt from this need.  Articles of Organization are not necessary for LLCs, but they can give further information about how the LLC is set up and runs. 
+
+Alongside this, you are required to file an Initial Report within 120 days of formation, providing additional information about the LLC.  
+
+https://www.sos.wa.gov/_assets/corps/forms/initial-report.pdf 
+
+https://www.sos.wa.gov/sites/default/files/2023-10/Initial_Report.pdf 
+
+While not mandatory, drafting an Operating Agreement is highly recommended to outline ownership, management, and operational procedures.  This agreement can help prevent misunderstandings and disputes among members and/or managers.  [INTERNAL DOCUMENT THAT IS NOT FILED, BUT VERY IMPORTANT!] 
+
+https://www.rocketlawyer.com/business-and-contracts/starting-a-business/form-an-llc/document/llc-operating-agreement/wa#:~:text=A%20Washington%20LLC%20Operating%20Agreement%20is%20a%20legal%20document%20that,provisions%2C%20and%20the%20management%20structure. 
+
+https://www.pandadoc.com/llc-operating-agreement-washington-state-template/ 
+
+I will also attach TWO SAMPLE templates separately, which I downloaded for FREE off of the internet.   
+
+Additionally, you must obtain a Business License from the Washington Department of Revenue, which registers your LLC for state taxes and regulatory requirements, and apply for an Employer Identification Number (EIN) from the IRS if you plan to hire employees or open a business bank account.  Depending on your business activities, you may also need local permits or licenses.  
+
+An LLC must apply for a business license with the Washington State Department of Revenue. This application registers the LLC for state taxes and provides a Unified Business Identifier (UBI) number. 
+
+https://dor.wa.gov/sites/default/files/2022-03/700028_0.pdf 
+
+If the LLC has employees or more than one member, it must obtain an EIN from the Internal Revenue Service (IRS). 
+
+“When to get an EIN: If you are forming a legal entity (LLC, partnership, corporation or tax exempt organization), form your entity through your state before you apply for an EIN. If you don’t form your entity with your state first, your EIN application may be delayed.” 
+
+https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number 
+
+Limited liability company (LLC) 
+
+“Get a new EIN if you: 
+
+Form a new single-member LLC and choose to be taxed as a corporation or S corporation 
+
+Form a new single-member LLC and have to file excise or employment taxes 
+
+Form a new multi-member LLC 
+
+You don’t need a new EIN if you: 
+
+Change your name or locations 
+
+Report income tax as a branch or division of another entity and you don’t have employees or owe excise tax 
+
+Convert a partnership to an LLC classified as a partnership 
+
+Change your tax election to a corporation or S corporation 
+
+Form a single-member LLC and don’t choose to be taxed as a corporation or S corporation and don’t have employees or owe excise tax” 
+
+EIN APPLICATION FORM THROUGH IRS IS CALLED AN “SS-4” FORM: 
+
+https://www.irs.gov/pub/irs-pdf/fss4.pdf 
+
+WASHINGTON SECRETARY OF STATE CONTACT INFORMATION: 
+
+Physical address & Overnight address by commercial carrier: 
+
+801 Capitol Way South, Olympia, WA 98501-1226 
+
+Mailing address (ALL USPS):  
+
+PO Box 40234, Olympia, WA 98504-0234 
+
+Email: corps@sos.wa.gov 
+Telephone: 360-725-0377 opt 1 
