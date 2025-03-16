@@ -1,25 +1,19 @@
 import useAutoSize from '@/hooks/useAutoSize';
-import sendIcon from '@/assets/send.svg';
 import { KeyboardEvent, RefObject } from 'react';
 import { ChatInputProps } from '@/types/chat';
 import styled from 'styled-components';
+import { ArrowRight } from 'lucide-react';
 
 const InputContainer = styled.div`
   width: 100%;
+  max-width: 800px;
   display: flex;
   align-items: center;
-  margin-top: 1rem;
+  margin: 1rem auto 0;
   background-color: #D8C79D;
   padding: 0.5rem;
   border-radius: 0.5rem;
   position: relative;
-`;
-
-const ArrowIcon = styled.div`
-  position: absolute;
-  left: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
 `;
 
 const StyledTextarea = styled.textarea`
@@ -27,28 +21,42 @@ const StyledTextarea = styled.textarea`
   resize: none;
   border: none;
   background-color: white;
-  color: black;
+  color: #374151;
+  font-family: inherit;
   font-size: 1rem;
-  padding: 0.75rem 1rem 0.75rem 2rem;
+  line-height: 1.5;
+  padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   outline: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 const SendButton = styled.button`
-  background: transparent;
+  background-color: #D8C79D;
+  color: #3E1F1B;
   border: none;
-  padding: 0;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
   margin-left: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-`;
-
-const SendIcon = styled.img`
-  width: 2.5rem;
-  height: 3.75rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    background-color: #C4B48A;
+    transform: scale(1.05);
+  }
+  
+  &:disabled {
+    background-color: #8B5E57;
+    color: #6D4C46;
+    cursor: not-allowed;
+    transform: none;
+  }
 `;
 
 export default function ChatInput({ newMessage, isLoading, setNewMessage, submitNewMessage }: ChatInputProps) {
@@ -63,11 +71,6 @@ export default function ChatInput({ newMessage, isLoading, setNewMessage, submit
 
   return (
     <InputContainer>
-      <ArrowIcon>
-        <svg width="50" height="19" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="0,0 12,5 0,10" fill="black" />
-        </svg>
-      </ArrowIcon>
 
       <StyledTextarea
         ref={textareaRef}
@@ -76,8 +79,12 @@ export default function ChatInput({ newMessage, isLoading, setNewMessage, submit
         onChange={e => setNewMessage(e.target.value)}
         onKeyDown={handleKeyDown}
       />
-      <SendButton onClick={submitNewMessage}>
-        <SendIcon src={sendIcon} alt="send" />
+      <SendButton 
+        onClick={submitNewMessage} 
+        disabled={isLoading || !newMessage.trim()}
+        aria-label="Send message"
+      >
+        <ArrowRight size={20} />
       </SendButton>
     </InputContainer>
   );

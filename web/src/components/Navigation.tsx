@@ -35,7 +35,7 @@ export default function Navigation({ hasSummary }: NavigationProps) {
           disabled={currentPath === '/'} 
           aria-label="Previous page"
         >
-          <ChevronLeft size={24} />
+          <ChevronLeft size={28} />
         </NavButton>
 
         <PageIndicator>
@@ -44,21 +44,21 @@ export default function Navigation({ hasSummary }: NavigationProps) {
             onClick={() => navigate('/')}
             aria-label="Chat page"
           >
-            <MessageSquare size={20} />
+            <MessageSquare size={24} />
           </PageButton>
           <PageButton 
             active={currentPath === '/summary'} 
             onClick={() => navigate('/summary')}
             aria-label="Summary page"
           >
-            <FileText size={20} />
+            <FileText size={24} />
           </PageButton>
           <PageButton 
             active={currentPath === '/next-steps'} 
             onClick={() => navigate('/next-steps')}
             aria-label="Next steps page"
           >
-            <ListChecks size={20} />
+            <ListChecks size={24} />
           </PageButton>
         </PageIndicator>
 
@@ -67,7 +67,7 @@ export default function Navigation({ hasSummary }: NavigationProps) {
           disabled={currentPath === '/next-steps'} 
           aria-label="Next page"
         >
-          <ChevronRight size={24} />
+          <ChevronRight size={28} />
         </NavButton>
       </NavigationButtons>
     </NavigationContainer>
@@ -88,8 +88,8 @@ const NavigationButtons = styled.div`
   display: flex;
   align-items: center;
   background-color: rgba(62, 31, 27, 0.9);
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 2.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 `;
 
@@ -98,8 +98,8 @@ const NavButton = styled.button<{ disabled?: boolean }>`
   color: ${props => props.disabled ? '#6D4C46' : '#3E1F1B'};
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,8 +115,8 @@ const NavButton = styled.button<{ disabled?: boolean }>`
 const PageIndicator = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 1rem;
-  gap: 0.5rem;
+  margin: 0 1.25rem;
+  gap: 0.75rem;
 `;
 
 const PageButton = styled.button<{ active: boolean }>`
@@ -124,8 +124,8 @@ const PageButton = styled.button<{ active: boolean }>`
   color: ${props => props.active ? '#3E1F1B' : '#D8C79D'};
   border: 2px solid ${props => props.active ? '#D8C79D' : 'rgba(216, 199, 157, 0.5)'};
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;

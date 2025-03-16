@@ -73,6 +73,14 @@ const ContentWrapper = styled.div`
 const MainChatSection = styled.div`
   width: 100%;
   max-width: 1200px;
-  padding: 0 1rem;
+  padding: 2rem;
+  margin: 0 auto;
+  background-color: #D8C79D;
+  border-radius: 8px;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 

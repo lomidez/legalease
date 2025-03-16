@@ -9,10 +9,11 @@ import styled from 'styled-components';
 const ChatContainer = styled.div`
   width: 100%;
   padding: 1rem;
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  background-color: white;
+  border-radius: 0.5rem;
 `;
 
 const MessageWrapper = styled.div.attrs<{ isUser: boolean }>(() => ({
@@ -39,10 +40,14 @@ const MessageBubble = styled.div.attrs<{ isUser: boolean }>(() => ({
   flex: 1;
   border-radius: 1rem;
   padding: 1rem;
-  background-color: ${({ isUser }) => (isUser ? '#ebf8ff' : '#f3f4f6')};
+  background-color: ${({ isUser }) => (isUser ? '#f3f4f6' : '#e5e7eb')};
   color: ${({ isUser }) => (isUser ? '#1e3a8a' : '#374151')};
   white-space: pre-wrap;
-  background-color: white;
+  font-size: 1rem;
+  line-height: 1.6;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 `;
 
 export default function ChatMessages({ messages, isLoading }: ChatMessagesProps) {

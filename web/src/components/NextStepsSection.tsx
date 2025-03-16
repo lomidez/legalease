@@ -48,10 +48,12 @@ export default function NextStepsSection({ handleNext, formattedNext, isLoading,
 
 const SectionContainer = styled.div`
   width: 100%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 5rem; /* Space for navigation */
+  margin: 0 auto;
 `;
 
 const PageHeader = styled.div`
@@ -70,9 +72,11 @@ const SectionTitle = styled.h2`
 
 const ContentArea = styled.div`
   width: 100%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;
 `;
 
 const ButtonWrapper = styled.div`

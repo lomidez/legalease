@@ -12,7 +12,7 @@ export default function ChatHeader({ toggleInstructions, showInstructions }: Pro
       <TextContainer>
         <Title>Welcome to LegalEase!</Title>
         <Description>
-          This free service is provided to support Washington residents who aspire to open a business...
+          This free service is provided to support Washington residents who aspire to open a business.
           <br />
           <i>This AI agent is not a legal representative. Any recommendations should not be considered legal advice.</i>
         </Description>
@@ -51,28 +51,35 @@ const TextContainer = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 `;
 
 const Description = styled.p`
   font-size: 0.875rem;
-  line-height: 1.4;
+  line-height: 1.5;
+  margin-bottom: 0;
 `;
 
 const Button = styled.button`
   background-color: #3E1F1B;
   color: #D8C79D;
   border: 2px solid #D8C79D;
-  font-weight: bold;
-  padding: 5px 10px;
-  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  font-size: 0.875rem;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
 
   &:hover {
     background-color: #B82F1A;
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
 `;
 

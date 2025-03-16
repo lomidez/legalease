@@ -53,18 +53,17 @@ const LoadingContainer = styled.div`
 const LoadingText = styled.p`
   margin-top: 1rem;
   color: #3E1F1B;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
 `;
 
 const ContentBox = styled.div`
   width: 100%;
-  padding: 2rem;
-  border: 1px solid black;
+  min-height: 60vh;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
   background-color: white;
-  overflow-y: auto;
-  max-height: 600px;
-  font-size: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
@@ -72,18 +71,20 @@ const ContentText = styled.div`
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: break-word;
-  line-height: 1.5;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: #374151;
 `;
 
 const EmptyState = styled.div`
   width: 100%;
   padding: 3rem;
   background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   text-align: center;
-  color: #3E1F1B;
-  font-size: 1.1rem;
-  line-height: 1.6;
+  color: #6b7280;
+  font-size: 1rem;
+  line-height: 1.5;
   min-height: 200px;
   display: flex;
   flex-direction: column;
@@ -91,5 +92,6 @@ const EmptyState = styled.div`
   
   p {
     margin-bottom: 1rem;
+    font-weight: 500;
   }
 `;
