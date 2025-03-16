@@ -41,3 +41,5 @@ vite.log
 # misc from startup
 api.log
 api.pid
+web.log
+web.pid

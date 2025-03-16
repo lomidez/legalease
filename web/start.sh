@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "### Starting Web Server ###"
 CURRENT_API_URL=""
 if [ -f .env ] && grep -q "VITE_API_URL=" .env; then
   CURRENT_API_URL=$(grep "VITE_API_URL=" .env | cut -d= -f2)
@@ -15,4 +16,7 @@ if [ -n "$API_IP" ]; then
 fi
 
 pnpm install
-pnpm run dev:detached
+
+nohup pnpm run dev > web.log 2>&1 &
+echo $! > web.pid
+echo "Web server running with PID $(cat web.pid). Log at web.log."

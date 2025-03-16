@@ -1,9 +1,20 @@
 #!/bin/bash
-read -rsp "Enter your HuggingFace token: " HF_TOKEN
+
+# stop any existing app, but suppress logs since sometimes there wont be any -- false alarm
+./stop.sh > /dev/null 2>&1
+
+# setup venv
 python3.11 -m venv venv
 source venv/bin/activate
 pip3.11 install -r requirements.txt
-HF_TOKEN=$HF_TOKEN nohup fastapi run --host 0.0.0.0 api/main.py > api.log 2>&1 &
-echo $! > api.pid
-echo "FastAPI server running with PID $(cat api.pid). Log at api.log."
-echo "WARNING: First run will take some time as the server downloads model tensors from HuggingFace."
+
+# run fastapi 
+# cd so the relative path stuff dont break
+cd api
+./start.sh
+
+# run web
+cd ../web
+./start.sh
+
+echo "WARNING: First run will take some time as the FastAPI server downloads model tensors from HuggingFace."
