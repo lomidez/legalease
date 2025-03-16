@@ -43,3 +43,4 @@ api.log
 api.pid
 web.log
 web.pid
+.aider*

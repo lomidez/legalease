@@ -18,5 +18,6 @@ fi
 pnpm install
 
 nohup pnpm run dev > web.log 2>&1 &
-echo $! > web.pid
+sleep 2
+echo $(lsof -i :5173 | awk 'NR>1 {print $2}' | head -n 1) > web.pid
 echo "Web server running with PID $(cat web.pid). Log at web.log."
