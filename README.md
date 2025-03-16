@@ -34,3 +34,5 @@ A `stop.sh` script is provided to stop both the FastAPI server and frontend.
 ```
 ./stop.sh
 ```
+
+NOTE: These scripts are meant to be used on [Jetstream](https://jetstream-cloud.org). In a Jetstream VM, sudo is password-less. 
