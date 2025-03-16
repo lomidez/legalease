@@ -13,7 +13,7 @@ export default function ContentDisplay({
   emptyStateMessage = "No content to display yet." 
 }: ContentDisplayProps) {
   return (
-    <>
+    <ContentContainer>
       {isLoading ? (
         <LoadingContainer>
           <Spinner />
@@ -21,16 +21,22 @@ export default function ContentDisplay({
         </LoadingContainer>
       ) : content && content.trim() ? (
         <ContentBox>
-          <pre>{content}</pre>
+          <ContentText>{content}</ContentText>
         </ContentBox>
       ) : (
         <EmptyState>
           <p>{emptyStateMessage}</p>
         </EmptyState>
       )}
-    </>
+    </ContentContainer>
   );
 }
+
+const ContentContainer = styled.div`
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+`;
 
 const LoadingContainer = styled.div`
   width: 100%;
@@ -41,6 +47,7 @@ const LoadingContainer = styled.div`
   padding: 3rem;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 0.5rem;
+  min-height: 200px;
 `;
 
 const LoadingText = styled.p`
@@ -57,11 +64,15 @@ const ContentBox = styled.div`
   overflow-y: auto;
   max-height: 600px;
   font-size: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const ContentText = styled.div`
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: break-word;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
 `;
 
 const EmptyState = styled.div`
@@ -73,6 +84,10 @@ const EmptyState = styled.div`
   color: #3E1F1B;
   font-size: 1.1rem;
   line-height: 1.6;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   
   p {
     margin-bottom: 1rem;

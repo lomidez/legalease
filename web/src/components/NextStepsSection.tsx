@@ -12,6 +12,12 @@ interface Props {
 
 export default function NextStepsSection({ handleNext, formattedNext, isLoading, className }: Props) {
   const navigate = useNavigate();
+  
+  const handleGenerateNext = async () => {
+    if (!isLoading) {
+      await handleNext();
+    }
+  };
 
   return (
     <SectionContainer className={className}>
@@ -23,16 +29,18 @@ export default function NextStepsSection({ handleNext, formattedNext, isLoading,
         <ButtonWrapper>
           <DraftButton 
             label="Generate Next Steps" 
-            onClick={handleNext}  
+            onClick={handleGenerateNext}  
             isLoading={isLoading} 
           />
         </ButtonWrapper>
         
-        <ContentDisplay 
-          content={formattedNext}
-          isLoading={isLoading}
-          emptyStateMessage="Click the button above to generate the next steps for establishing your business. This will provide you with a clear roadmap of actions to take."
-        />
+        <ContentDisplayWrapper>
+          <ContentDisplay 
+            content={formattedNext}
+            isLoading={isLoading}
+            emptyStateMessage="Click the button above to generate the next steps for establishing your business. This will provide you with a clear roadmap of actions to take."
+          />
+        </ContentDisplayWrapper>
       </ContentArea>
     </SectionContainer>
   );
@@ -71,5 +79,10 @@ const ButtonWrapper = styled.div`
   margin-bottom: 2rem;
   width: 100%;
   max-width: 300px;
+`;
+
+const ContentDisplayWrapper = styled.div`
+  width: 100%;
+  max-width: 800px;
 `;
 

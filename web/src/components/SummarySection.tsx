@@ -2,6 +2,7 @@ import DraftButton from '@/components/DraftButton';
 import ContentDisplay from '@/components/ContentDisplay';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 interface Props {
   handleSummarize: () => Promise<void>;
@@ -12,6 +13,12 @@ interface Props {
 
 export default function SummarySection({ handleSummarize, formattedSummary = '', isLoading, className}: Props) {
   const navigate = useNavigate();
+  
+  const handleGenerateSummary = async () => {
+    if (!isLoading) {
+      await handleSummarize();
+    }
+  };
 
   return (
     <SectionContainer className={className}>
@@ -23,16 +30,18 @@ export default function SummarySection({ handleSummarize, formattedSummary = '',
         <ButtonWrapper>
           <DraftButton 
             label="Generate Business Summary" 
-            onClick={handleSummarize}  
+            onClick={handleGenerateSummary}  
             isLoading={isLoading} 
           />
         </ButtonWrapper>
         
-        <ContentDisplay 
-          content={formattedSummary}
-          isLoading={isLoading}
-          emptyStateMessage="Click the button above to generate a summary of your business based on your conversation. This will help you understand the key aspects of your business structure."
-        />
+        <ContentDisplayWrapper>
+          <ContentDisplay 
+            content={formattedSummary}
+            isLoading={isLoading}
+            emptyStateMessage="Click the button above to generate a summary of your business based on your conversation. This will help you understand the key aspects of your business structure."
+          />
+        </ContentDisplayWrapper>
       </ContentArea>
     </SectionContainer>
   );
@@ -71,5 +80,10 @@ const ButtonWrapper = styled.div`
   margin-bottom: 2rem;
   width: 100%;
   max-width: 300px;
+`;
+
+const ContentDisplayWrapper = styled.div`
+  width: 100%;
+  max-width: 800px;
 `;
 
