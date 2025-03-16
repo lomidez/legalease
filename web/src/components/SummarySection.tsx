@@ -1,4 +1,5 @@
 import DraftButton from '@/components/DraftButton';
+import ContentDisplay from '@/components/ContentDisplay';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +10,7 @@ interface Props {
   className?: string;
 }
 
-export default function SummarySection({ handleSummarize, formattedSummary, isLoading, className}: Props) {
+export default function SummarySection({ handleSummarize, formattedSummary = '', isLoading, className}: Props) {
   const navigate = useNavigate();
 
   return (
@@ -27,16 +28,11 @@ export default function SummarySection({ handleSummarize, formattedSummary, isLo
           />
         </ButtonWrapper>
         
-        {formattedSummary && formattedSummary.trim() ? (
-          <ContentBox>
-            <pre>{formattedSummary}</pre>
-          </ContentBox>
-        ) : (
-          <EmptyState>
-            <p>Click the button above to generate a summary of your business based on your conversation.</p>
-            <p>This will help you understand the key aspects of your business structure.</p>
-          </EmptyState>
-        )}
+        <ContentDisplay 
+          content={formattedSummary}
+          isLoading={isLoading}
+          emptyStateMessage="Click the button above to generate a summary of your business based on your conversation. This will help you understand the key aspects of your business structure."
+        />
       </ContentArea>
     </SectionContainer>
   );
@@ -77,32 +73,3 @@ const ButtonWrapper = styled.div`
   max-width: 300px;
 `;
 
-const ContentBox = styled.div`
-  width: 100%;
-  padding: 2rem;
-  border: 1px solid black;
-  background-color: white;
-  overflow-y: auto;
-  max-height: 600px;
-  font-size: 1rem;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-const EmptyState = styled.div`
-  width: 100%;
-  padding: 3rem;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 0.5rem;
-  text-align: center;
-  color: #3E1F1B;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  
-  p {
-    margin-bottom: 1rem;
-  }
-`;
