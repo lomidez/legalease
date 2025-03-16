@@ -26,7 +26,6 @@ export default function ContentDisplay({
       ) : isLoading ? (
         <LoadingContainer>
           <Spinner />
-          <LoadingText>Generating response...</LoadingText>
         </LoadingContainer>
       ) : (
         <EmptyState>
@@ -55,12 +54,6 @@ const LoadingContainer = styled.div`
   min-height: 200px;
 `;
 
-const LoadingText = styled.p`
-  margin-top: 1rem;
-  color: #3E1F1B;
-  font-size: 1rem;
-  font-weight: 500;
-`;
 
 const ContentBox = styled.div`
   width: 100%;
