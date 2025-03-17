@@ -8,16 +8,16 @@ interface Props {
   handleNext: () => Promise<void>;
   formattedNext: string;
   isLoading: boolean;
-  className?: string; 
+  className?: string;
 }
 
 export default function NextStepsSection({ handleNext, formattedNext, isLoading, className }: Props) {
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
+
   const handleGenerateNext = async () => {
     if (!isLoading) {
       await handleNext();
@@ -29,21 +29,21 @@ export default function NextStepsSection({ handleNext, formattedNext, isLoading,
       <PageHeader>
         <SectionTitle>Next Steps</SectionTitle>
       </PageHeader>
-      
+
       <ContentArea>
         <ButtonWrapper>
-          <DraftButton 
-            label="Generate Next Steps" 
-            onClick={handleGenerateNext}  
-            isLoading={isLoading} 
+          <DraftButton
+            label="Generate Next Steps"
+            onClick={handleGenerateNext}
+            isLoading={isLoading}
           />
         </ButtonWrapper>
-        
+
         <ContentDisplayWrapper>
-          <ContentDisplay 
+          <ContentDisplay
             content={formattedNext}
             isLoading={isLoading}
-            emptyStateMessage="Click the button above to generate the next steps for establishing your business. This will provide you with a clear roadmap of actions to take."
+            emptyStateMessage="Click the button above to generate a list of next steps you can use to bring your business to life."
           />
         </ContentDisplayWrapper>
       </ContentArea>

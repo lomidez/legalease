@@ -4,7 +4,8 @@ import { useImmer } from 'use-immer';
 import { Message } from '@/types/chat';
 import Chatbot from '@/components/Chatbot';
 import SummaryPage from '@/components/SummarySection';
-import NextStepsPage from '@/components/NextStepsSection';
+import DraftPage from './components/DraftSection';
+import NextStepsPage from './components/NextStepsSection';
 import Navigation from '@/components/Navigation';
 import api from '@/api';
 import { parseSSEStream } from '@/utils';
@@ -72,17 +73,37 @@ export default function App() {
       setFormattedSummary('');
       setIsSummaryLoading(true);
       const stream = await api.summarize(sessionIdRef.current);
-      
+
       // Process the stream
       for await (const textChunk of parseSSEStream(stream)) {
         setFormattedSummary(prev => prev + textChunk);
       }
-      
+
       // Only set loading to false after the stream is complete
       setIsSummaryLoading(false);
     } catch (err) {
       console.log("Error while fetching summary:", err);
       setIsSummaryLoading(false);
+    }
+  }
+
+  async function handleDraft(): Promise<void> {
+    if (!sessionIdRef.current) return console.log("Session ID is not set.");
+    try {
+      setFormattedNext('');
+      setIsNextStepsLoading(true);
+      const stream = await api.draft_articles(sessionIdRef.current);
+
+      // Process the stream
+      for await (const textChunk of parseSSEStream(stream)) {
+        setFormattedNext(prev => prev + textChunk);
+      }
+
+      // Only set loading to false after the stream is complete
+      setIsNextStepsLoading(false);
+    } catch (err) {
+      console.log("Error while fetching next steps:", err);
+      setIsNextStepsLoading(false);
     }
   }
 
@@ -92,12 +113,12 @@ export default function App() {
       setFormattedNext('');
       setIsNextStepsLoading(true);
       const stream = await api.generate_next_steps(sessionIdRef.current);
-      
+
       // Process the stream
       for await (const textChunk of parseSSEStream(stream)) {
         setFormattedNext(prev => prev + textChunk);
       }
-      
+
       // Only set loading to false after the stream is complete
       setIsNextStepsLoading(false);
     } catch (err) {
@@ -111,7 +132,7 @@ export default function App() {
       <AppContainer>
         <Routes>
           <Route path="/" element={
-            <Chatbot 
+            <Chatbot
               messages={messages}
               newMessage={newMessage}
               isLoading={isLoading}
@@ -122,17 +143,25 @@ export default function App() {
             />
           } />
           <Route path="/summary" element={
-            <SummaryPage 
-              handleSummarize={handleSummarize} 
-              formattedSummary={formattedSummary} 
+            <SummaryPage
+              handleSummarize={handleSummarize}
+              formattedSummary={formattedSummary}
               isLoading={isSummaryLoading}
               className="page-container"
             />
           } />
           <Route path="/next-steps" element={
-            <NextStepsPage 
-              handleNext={handleNext} 
-              formattedNext={formattedNext} 
+            <NextStepsPage
+              handleNext={handleNext}
+              formattedNext={formattedNext}
+              isLoading={isNextStepsLoading}
+              className="page-container"
+            />
+          } />
+          <Route path="/draft" element={
+            <DraftPage
+              handleDraft={handleDraft}
+              formattedNext={formattedNext}
               isLoading={isNextStepsLoading}
               className="page-container"
             />
