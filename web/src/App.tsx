@@ -23,9 +23,11 @@ export default function App() {
   ]);
   const [newMessage, setNewMessage] = useState('');
   const [formattedSummary, setFormattedSummary] = useState('');
+  const [formattedDraft, setFormattedDraft] = useState('');
   const [formattedNext, setFormattedNext] = useState('');
   const [showInstructions, setShowInstructions] = useState(false);
   const [isSummaryLoading, setIsSummaryLoading] = useState(false);
+  const [isDraftLoading, setIsDraftLoading] = useState(false);
   const [isNextStepsLoading, setIsNextStepsLoading] = useState(false);
 
   const isLoading: boolean = messages.length > 0 ? messages[messages.length - 1].loading : false;
@@ -90,20 +92,20 @@ export default function App() {
   async function handleDraft(): Promise<void> {
     if (!sessionIdRef.current) return console.log("Session ID is not set.");
     try {
-      setFormattedNext('');
-      setIsNextStepsLoading(true);
+      setFormattedDraft('');
+      setIsDraftLoading(true);
       const stream = await api.draft_articles(sessionIdRef.current);
 
       // Process the stream
       for await (const textChunk of parseSSEStream(stream)) {
-        setFormattedNext(prev => prev + textChunk);
+        setFormattedDraft(prev => prev + textChunk);
       }
 
       // Only set loading to false after the stream is complete
-      setIsNextStepsLoading(false);
+      setIsDraftLoading(false);
     } catch (err) {
-      console.log("Error while fetching next steps:", err);
-      setIsNextStepsLoading(false);
+      console.log("Error while fetching draft articles:", err);
+      setIsDraftLoading(false);
     }
   }
 
@@ -161,8 +163,8 @@ export default function App() {
           <Route path="/draft" element={
             <DraftPage
               handleDraft={handleDraft}
-              formattedNext={formattedNext}
-              isLoading={isNextStepsLoading}
+              formattedNext={formattedDraft}
+              isLoading={isDraftLoading}
               className="page-container"
             />
           } />
