@@ -17,7 +17,16 @@ export async function* parseSSEStream(
         // remove "data: "
         line = line.slice(6)
         try {
-          let parsedString = line.replace(/"/g, '').replace(/\\n/g, '\n').replace("\u2013", '-')
+          let parsedString = line
+            .replace(/"/g, '')
+            .replace(/\\n/g, '\n')
+            .replace("\\u2013", '–')
+            .replace("\\u2022", '•')
+            .replace("\\u201c", '“')
+            .replace("\\u201d", '”')
+            .replace("\\u2014", '—')
+            .replace("**", '')
+            .replace("\\", '')
           if (parsedString.endsWith("</s>")) {
             parsedString = parsedString.substring(0, parsedString.length - 4);
           }

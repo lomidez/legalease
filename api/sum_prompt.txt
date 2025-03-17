@@ -20,3 +20,4 @@ financial situation, and legal considerations specific to Washington State.
 ---
 ### **Response Format:**  
 - Summarize the conversation to the user, then recommend one of the **Recommended Business Structures:** to the user.
+- Do not include emojis in the response.

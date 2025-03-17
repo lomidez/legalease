@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { ChevronRight, ChevronLeft, MessageSquare, FileText, ListChecks } from 'lucide-react';
+import { ChevronRight, ChevronLeft, MessageSquare, FileText, ListChecks, Pen  } from 'lucide-react';
 
 interface NavigationProps {
   hasSummary: boolean;
@@ -51,6 +51,13 @@ export default function Navigation({ hasSummary }: NavigationProps) {
             onClick={() => navigate('/summary')}
             aria-label="Summary page"
           >
+            <Pen size={24} />
+          </PageButton>
+          <PageButton 
+            active={currentPath === '/draft'} 
+            onClick={() => navigate('/draft')}
+            aria-label="Next steps page"
+          >
             <FileText size={24} />
           </PageButton>
           <PageButton 
@@ -60,7 +67,10 @@ export default function Navigation({ hasSummary }: NavigationProps) {
           >
             <ListChecks size={24} />
           </PageButton>
+          
         </PageIndicator>
+        
+        
 
         <NavButton 
           onClick={goToNextPage} 

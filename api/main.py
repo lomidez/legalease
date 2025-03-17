@@ -13,6 +13,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, AsyncTextIteratorS
 from threading import Thread
 from rag import query_rag
 
+import torch
+
 ### MODELS ###
 class ChatRequest(BaseModel):
     message: str
@@ -62,9 +64,9 @@ def read_text_file(file_path):
 model = None
 tokenizer = None
 system_prompt = ""
+session_classifications = {}
 message_history = defaultdict(list)
 next_session_id = 0
-
 
 
 ### INIT ###
@@ -100,6 +102,45 @@ async def startup_event():
 async def health_check():
     return {"status": "healthy", "service": "api"}
 
+@app.post("/classify/{session_id}")
+async def get_classification(session_id: int, chatRequest: ChatRequest):
+    classification_prompt = [
+        {
+            "role": "system",
+            "content": (
+                "You are an expert business consultant called LegalEase specializing in Washington State. "
+                "Classify the input according to the most suitable business structure for the user. "
+                "Return ONLY ONE of the following labels with no additional text: 'llc', 's_corp', or 'nonprofit'."
+            )
+        },
+        {"role": "user", "content": chatRequest.message}
+    ]
+    
+    model_inputs = tokenizer.apply_chat_template(
+        classification_prompt, return_tensors="pt", padding=True
+    ).to("cuda")
+    
+    with torch.no_grad():
+        output = model.generate(
+            model_inputs, 
+            max_new_tokens=20,
+            do_sample=False,    
+            pad_token_id=tokenizer.eos_token_id
+        )
+    
+    response = tokenizer.decode(output[0], skip_special_tokens=True)
+
+    classification = "unknown"
+    for label in ["llc", "s_corp", "nonprofit"]:
+        if label in response.lower():
+            classification = label
+            break
+    
+    session_classifications[session_id] = classification
+    
+    append_message(session_id, "classification", classification)
+    
+    return {"classification": classification, "full_response": response}
 
 @app.post("/chat/{session_id}")
 async def generate_streaming_response(session_id: int, chatRequest: ChatRequest):
@@ -235,17 +276,67 @@ async def draft_articles(session_id: int):
         except Exception as e:
             yield f"data: [Error: {json.dumps(e)}]\n\n"
 
-    # Gather the conversation history content from the message history
-    full_content = ""
+     # Check if we have a summary, if not, generate one
+    has_summary = False
+    summary_content = ""
     for message in message_history[session_id]:
-        # Append only 'user' and 'assistant' roles to the content, not the original sytem prompt
-        if message['role'] in ['summary']:
-            # Send as a user so the model filter accepts the query
-            full_content += "\n*role*: *" + message['role'] + "*, *content*: " + message['content'] + "*"
-
+        if message['role'] == 'summary':
+            has_summary = True
+            summary_content = message['content']
+            break
     
-    # In memory store for aoi drafts
-    aoi = read_text_file("art_of_inc/llc_aoi.txt")
+    if not has_summary:
+        # Call summarize endpoint to generate a summary
+        print("No summary found. Generating one now...")
+        await summarize_history(session_id)
+        
+        # Now get the newly created summary
+        for message in message_history[session_id]:
+            if message['role'] == 'summary':
+                summary_content = message['content']
+                break
+    
+    # Format the summary to be passed to the model
+    full_content = f"\n*role*: *summary*, *content*: {summary_content}*"
+    
+    # Get the classification for this session
+    classification = "llc"  # Default to LLC if no classification exists
+    
+    # Check if we have a stored classification
+    if session_id in session_classifications:
+        classification = session_classifications[session_id]
+    else:
+        # Look through message history for a classification message
+        classification_exists = False
+        for message in message_history[session_id]:
+            if message['role'] == 'classification':
+                classification = message['content']
+                classification_exists = True
+                break
+        
+        # If no classification exists, generate one using the summary
+        if not classification_exists and summary_content:
+            print("No classification found. Generating one now based on summary...")
+            # Create a chat request with the summary content
+            chat_request = ChatRequest(message=summary_content)
+            # Call the classification endpoint
+            classification_response = await get_classification(session_id, chat_request)
+            classification = classification_response["classification"]
+    
+    # Select the appropriate template based on classification
+    template = ""
+    if classification == "llc":
+        template = read_text_file("art_of_inc/llc.txt")
+    elif classification == "s_corp":
+        template = read_text_file("art_of_inc/s_corp.txt")
+    elif classification == "nonprofit":
+        template = read_text_file("art_of_inc/nonprofit.txt")
+    else:
+        # Fallback to LLC if classification is unknown
+        template = read_text_file("art_of_inc/llc.txt")
+    
+    print(f"Selected template for classification: {classification}")
+
     # Create the system message with the appropriate context
     full_pair = [
         {
@@ -253,13 +344,13 @@ async def draft_articles(session_id: int):
             "content": (
                 "You are an expert business consultant called LegalEase **specializing in Washington State**. "
                 "Your role is to help users determine the most suitable **business structure** based on their **business goals, financial situation, and legal considerations specific to Washington State**. \n\n"
-                "You will be provided a summary of a business discussion and a template for an Articles of Incorporation Document."
-                "Use the Articles of Incorporation Template and summary to draft an Articles of Incorporation for the business."
-                "Generate as much as you can given the information provided in the summary."
+                "You will be provided a summary of a business discussion and a template for Articles of Incorporation or other appropriate business formation Document."
+                "Use the Template and summary to draft a formation document for the business."
                 "Draft all sections possible. If a section doesn't have relevant information yet, expicitly tell the user to provide it after the draft."
+                "Be as concise as possible, provide your answers in key-value pairs"
             )
         },
-        {"role": "user", "content": f"Use this Summary: {full_content} and this Articles of Incorporation template {aoi} to draft Articles of Incorporation for this business idea."}, 
+        {"role": "user", "content": f"Use this Summary: {full_content} and this template: {template} to draft the Articles of Incorporation for this business. The business has been classified as a {classification}."}, 
     ]
 
     print("\n\n\nSENT TO the model!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n")
@@ -268,7 +359,7 @@ async def draft_articles(session_id: int):
     streamer = AsyncTextIteratorStreamer(tokenizer, skip_prompt=True)
     print('#######################draft checkpoint#################')
 
-    # Convert full_sum to the imput format
+    # Convert full_sum to the input format
     model_inputs = tokenizer.apply_chat_template(
         full_pair, return_tensors="pt", padding=True
     ).to("cuda")
@@ -300,9 +391,43 @@ async def generate_next_steps(session_id: int):
             # Send as a user so the model filter accepts the query
             full_content += "\n*role*: *" + message['role'] + "*, *content*: " + message['content'] + "*"
 
+
+    # Get the classification for this session
+    classification = "llc"  # Default to LLC if no classification exists
     
-    # In memory store for aoi drafts
-    aoi = read_text_file("art_of_inc/llc_aoi.txt")
+    # Check if we have a stored classification
+    if session_id in session_classifications:
+        classification = session_classifications[session_id]
+    else:
+        # Look through message history for a classification message
+        classification_exists = False
+        for message in message_history[session_id]:
+            if message['role'] == 'classification':
+                classification = message['content']
+                classification_exists = True
+                break
+        
+        # If no classification exists, generate one using the summary
+        if not classification_exists and summary_content:
+            print("No classification found. Generating one now based on summary...")
+            # Create a chat request with the summary content
+            chat_request = ChatRequest(message=summary_content)
+            # Call the classification endpoint
+            classification_response = await get_classification(session_id, chat_request)
+            classification = classification_response["classification"]
+    
+    # Select the appropriate template based on classification
+    template = ""
+    if classification == "llc":
+        template = read_text_file("art_of_inc/llc.txt")
+    elif classification == "s_corp":
+        template = read_text_file("art_of_inc/s_corp.txt")
+    elif classification == "nonprofit":
+        template = read_text_file("art_of_inc/nonprofit.txt")
+    else:
+        # Fallback to LLC if classification is unknown
+        template = read_text_file("art_of_inc/llc.txt")
+    
     directions = read_text_file("art_of_inc/directions.txt")
     # Create the system message with the appropriate context
     full_pair = [
@@ -315,7 +440,7 @@ async def generate_next_steps(session_id: int):
                 "Generate a list of next steps for the user to take. Mention things like reserving their business name, filing an EIN" + directions
             )
         },
-        {"role": "user", "content": f"Use this Summary: {full_content} and this Articles of Incorporation template {aoi} to draft Articles of Incorporation for this business idea."}, 
+        {"role": "user", "content": f"Use this Summary: {full_content} and this Articles of Incorporation template {template} to draft Articles of Incorporation for this business idea."}, 
     ]
 
     print("\n\n\nSENT TO the model!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n")
