@@ -28,9 +28,6 @@ export default function NextStepsSection({ handleNext, formattedNext, isLoading,
     <SectionContainer className={className}>
       <PageHeader>
         <SectionTitle>Next Steps</SectionTitle>
-      </PageHeader>
-
-      <ContentArea>
         <ButtonWrapper>
           <DraftButton
             label="Generate Next Steps"
@@ -38,6 +35,9 @@ export default function NextStepsSection({ handleNext, formattedNext, isLoading,
             isLoading={isLoading}
           />
         </ButtonWrapper>
+      </PageHeader>
+
+      <ContentArea>
 
         <ContentDisplayWrapper>
           <ContentDisplay
@@ -73,6 +73,9 @@ const SectionTitle = styled.h2`
   font-size: 2rem;
   font-weight: bold;
   color: #3E1F1B;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #3E1F1B;
+  width: 100%;
 `;
 
 const ContentArea = styled.div`
@@ -86,9 +89,8 @@ const ContentArea = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  margin-bottom: 2rem;
-  width: 100%;
-  max-width: 300px;
+  margin-left: 1rem;
+  width: auto;
 `;
 
 const ContentDisplayWrapper = styled.div`
