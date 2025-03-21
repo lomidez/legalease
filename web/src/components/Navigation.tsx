@@ -15,18 +15,21 @@ export default function Navigation({ hasSummary }: NavigationProps) {
     if (currentPath === '/') {
       navigate('/summary');
     } else if (currentPath === '/summary') {
+      navigate('/draft');
+    } else if (currentPath === '/draft') {
       navigate('/next-steps');
-    }
-  };
+  };}
 
   const goToPreviousPage = () => {
     if (currentPath === '/next-steps') {
+      navigate('/draft');
+    } else if (currentPath === '/draft') {
       navigate('/summary');
     } else if (currentPath === '/summary') {
-      navigate('/');
+        navigate('/');
     }
   };
-
+  
   return (
     <NavigationContainer>
       <NavigationButtons>
@@ -46,6 +49,7 @@ export default function Navigation({ hasSummary }: NavigationProps) {
           >
             <MessageSquare size={24} />
           </PageButton>
+
           <PageButton 
             active={currentPath === '/summary'} 
             onClick={() => navigate('/summary')}
@@ -53,13 +57,15 @@ export default function Navigation({ hasSummary }: NavigationProps) {
           >
             <Pen size={24} />
           </PageButton>
+
           <PageButton 
             active={currentPath === '/draft'} 
             onClick={() => navigate('/draft')}
-            aria-label="Next steps page"
+            aria-label="Draft page"
           >
             <FileText size={24} />
           </PageButton>
+
           <PageButton 
             active={currentPath === '/next-steps'} 
             onClick={() => navigate('/next-steps')}

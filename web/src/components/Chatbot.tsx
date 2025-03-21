@@ -58,7 +58,7 @@ const ChatContainer = styled.div`
   justify-content: flex-start;
   max-width: 1600px;
   min-height: 100vh;
-  padding-bottom: 5rem; /* Space for navigation */
+  padding-bottom: 5rem;
 `;
 
 const ContentWrapper = styled.div`

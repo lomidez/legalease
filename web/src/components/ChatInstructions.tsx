@@ -125,12 +125,15 @@ export default function ChatInstructions({ closeInstructions }: Props) {
           </Step>
           
           <Step>
-            <StepTitle>Step 2: Generate Business Summary</StepTitle>
+            <StepTitle>Step 2: Generate Business Summary and Draft Documents</StepTitle>
             <StepContent>
               Once you feel like you have adequately described your business, click the right arrow icon at the bottom of the page.
             </StepContent>
             <StepContent>
               In the next page, you will be able to click 'Generate Business Summary' to summarize the conversation so far.
+            </StepContent>
+            <StepContent>
+              Once you like the summary generated and business structure recommended, you can begin drafting initial forms by again clicking the right arrow.
             </StepContent>
           </Step>
           

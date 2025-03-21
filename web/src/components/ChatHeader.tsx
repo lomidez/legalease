@@ -25,7 +25,6 @@ export default function ChatHeader({ toggleInstructions, showInstructions }: Pro
   );
 }
 
-// Styled Components
 const Header = styled.div`
   padding: 50px 20px;
   background-color: #D8C79D;
@@ -36,12 +35,12 @@ const Header = styled.div`
   border-radius: 2px 2px 10px 10px;
 
   position: sticky;
-  top: 0; /* Ensures it sticks to the top */
-  z-index: 1000; /* Keeps it above other content */
-  height: 4rem; /* Fixed height to prevent shifting */
-  flex-shrink: 0; /* Prevents shrinking */
+  top: 0; 
+  z-index: 1000; 
+  height: 4rem; 
+  flex-shrink: 0; 
   
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
 `;
 
 

@@ -33,7 +33,7 @@ def init_model():
         base_url, cache_dir=hf_cache_dir
     )
 
-    # Set pad token to eos token (but explicitly define it)
+    
     tokenizer.pad_token = tokenizer.eos_token
 
     return model, tokenizer
@@ -60,7 +60,6 @@ def read_text_file(file_path):
 
 
 ### GLOBAL VARS ###
-
 model = None
 tokenizer = None
 system_prompt = ""
@@ -70,7 +69,6 @@ next_session_id = 0
 
 
 ### INIT ###
-
 app = FastAPI()
 
 app.add_middleware(
@@ -93,7 +91,7 @@ async def startup_event():
     print("Initializing model...")
     model, tokenizer = init_model()
     print("Loading system prompts...")
-    system_prompt = get_prompt()  # Load instructions from prompt.txt
+    system_prompt = get_prompt() 
     sum_prompt = get_sum_prompt()
     print("System is ready...")
 
@@ -174,12 +172,13 @@ async def generate_streaming_response(session_id: int, chatRequest: ChatRequest)
         if message['role'] in ['system','user', 'assistant']:
                 filtered_msgs.append(message)
     print(filtered_msgs)
-    # Convert messages to model input
+
+    # tokeninze imputs
     model_inputs = tokenizer.apply_chat_template(
         filtered_msgs, return_tensors="pt", padding=True
     ).to("cuda")
 
-    # Start generating response
+    # Start the streaming
     streamer = AsyncTextIteratorStreamer(tokenizer, skip_prompt=True)
     generation_kwargs = dict(
         inputs=model_inputs, streamer=streamer, max_new_tokens=500, do_sample=True
@@ -296,17 +295,14 @@ async def draft_articles(session_id: int):
                 summary_content = message['content']
                 break
     
-    # Format the summary to be passed to the model
+    # format summary
     full_content = f"\n*role*: *summary*, *content*: {summary_content}*"
+    # defaults to llc if an error is found
+    classification = "llc" 
     
-    # Get the classification for this session
-    classification = "llc"  # Default to LLC if no classification exists
-    
-    # Check if we have a stored classification
     if session_id in session_classifications:
         classification = session_classifications[session_id]
     else:
-        # Look through message history for a classification message
         classification_exists = False
         for message in message_history[session_id]:
             if message['role'] == 'classification':
@@ -337,7 +333,7 @@ async def draft_articles(session_id: int):
     
     print(f"Selected template for classification: {classification}")
 
-    # Create the system message with the appropriate context
+    # format the message to the model
     full_pair = [
         {
             "role": "system",
@@ -383,7 +379,6 @@ async def generate_next_steps(session_id: int):
         except Exception as e:
             yield f"data: [Error: {json.dumps(e)}]\n\n"
 
-    # Gather the conversation history content from the message history
     full_content = ""
     for message in message_history[session_id]:
         # Append only 'user' and 'assistant' roles to the content, not the original sytem prompt, and only the last
@@ -399,7 +394,6 @@ async def generate_next_steps(session_id: int):
     if session_id in session_classifications:
         classification = session_classifications[session_id]
     else:
-        # Look through message history for a classification message
         classification_exists = False
         for message in message_history[session_id]:
             if message['role'] == 'classification':
@@ -407,7 +401,6 @@ async def generate_next_steps(session_id: int):
                 classification_exists = True
                 break
         
-        # If no classification exists, generate one using the summary
         if not classification_exists and summary_content:
             print("No classification found. Generating one now based on summary...")
             # Create a chat request with the summary content
@@ -416,7 +409,6 @@ async def generate_next_steps(session_id: int):
             classification_response = await get_classification(session_id, chat_request)
             classification = classification_response["classification"]
     
-    # Select the appropriate template based on classification
     template = ""
     if classification == "llc":
         template = read_text_file("art_of_inc/llc.txt")
@@ -425,11 +417,9 @@ async def generate_next_steps(session_id: int):
     elif classification == "nonprofit":
         template = read_text_file("art_of_inc/nonprofit.txt")
     else:
-        # Fallback to LLC if classification is unknown
         template = read_text_file("art_of_inc/llc.txt")
     
     directions = read_text_file("art_of_inc/directions.txt")
-    # Create the system message with the appropriate context
     full_pair = [
         {
             "role": "system",
