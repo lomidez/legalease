@@ -1,6 +1,10 @@
+# LegalEase: Small Business Formation Advice Chatbot
+
 ## Description 
 
-TODO
+LegalEase is an AI-powered chatbot designed to assist small business owners in Washington State with legal guidance on business formation. The chatbot provides low-cost, accessible support for selecting a business structure, understanding legal requirements, and generating key legal documents.
+
+![LegalEase Demo](legalease_demo.gif)
 
 ## Quick Start
 
