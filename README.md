@@ -17,7 +17,7 @@ Since this is a private repo, you need to setup GitHub authentication to clone t
 ```
 sudo apt install gh
 BROWSER=echo gh auth login
-git clone https://github.com/davay/CPSC5830-Team1
+git clone https://github.com/davay/legalease
 ```
 
 On a fresh VM, run the initialization script:
