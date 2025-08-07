@@ -2,8 +2,6 @@
 
 Members: Benjamin Philipose, Nicholas McNamara, Lisa Lomidze, Devin Lim 
 
-A project completed for Large Language Models class at SeattleU, Winter Quarter 2025.
-
 ## Description 
 
 LegalEase is an AI-powered chatbot designed to assist small business owners in Washington State with legal guidance on business formation. The chatbot provides low-cost, accessible support for selecting a business structure, understanding legal requirements, and generating key legal documents.
